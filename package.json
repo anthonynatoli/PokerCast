@@ -1,6 +1,5 @@
 {
-  "name": "CastFrameworkExample",
-  "subdomain": "orangepickel-example",
+  "name": "PokerCast",
   "scripts": {
     "start": "node app.js"
   },
