@@ -13,7 +13,7 @@ Setup (for development)
     </li>
 </ol>
 
-How run locally
+How To Run Locally
 ------
 <ol>
   <li>Make sure you already followed the instructions <b>Setup (for development)</b></li>
@@ -36,7 +36,7 @@ Setup (for deployment)
   </li>
 </ol>
 
-How run deploy
+How To Deploy
 ------
 <ol>
   <li>Make sure you already followed the instructions <b>Setup (for development)</b> and <b>Setup (for deployment)</b></li>
