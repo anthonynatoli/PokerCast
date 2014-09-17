@@ -19,4 +19,13 @@ $(CastFramework).ready(function() {
 	 	CastFramework.sendMessage(clientId, "exampleCommand", "hello!");
 	 });
 
+    $(CastFramework).on("start", function(event, clientId, content) {
+    	content = content || {};
+    	if(content.aiPlayers) {
+    		for(int i = 0; i < content.aiPlayers; i++) {
+    			game.players().push(new AIPlayer(i));
+    		}
+    	}
+    });
+
 });

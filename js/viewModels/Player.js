@@ -1,6 +1,6 @@
-function Player(id, name, chips) {
+function Player(id, name) {
 	var self = this;
 	self.id = id;
 	self.name = name || "";
-	self.chips = chips || 50;
+	self.chips = 0;
 }
