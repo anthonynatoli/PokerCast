@@ -26,6 +26,7 @@ $(CastFramework).ready(function() {
     			game.players().push(new AIPlayer(i));
     		}
     	}
+    	console.dir(game.players());
     });
 
 });
