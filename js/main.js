@@ -26,7 +26,8 @@ $(CastFramework).ready(function() {
     	content = content || {};
     	
     	var previous_bet = content.bet;
-    	var next_player = ; //get next player in order to bet ( something.getNextPlayer( clientId ); )
+        var current_index = game.players().indexOf( clientId );
+    	var next_player = game.players()[ current_index + 1 ]; //get next player in order
 		
 		var new_turn = {
     			'last_bet' : previous_bet,
