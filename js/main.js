@@ -31,7 +31,7 @@ $(CastFramework).ready(function() {
 		
 		var new_turn = {
     			'last_bet' : previous_bet,
-    			'player_id' : next_player
+    			'player_id' : next_player.id
     	};
     	
     	game.players().forEach( function( player ) {  //send message to all clients
