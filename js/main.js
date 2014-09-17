@@ -22,17 +22,20 @@ $(CastFramework).ready(function() {
 	 });
 
     /*Signal from android that a turn is complete*/
-    $(CastFramework).on( 'my_turn', function( event, clientId, content ){
+    $( CastFramework ).on( 'my_turn', function( event, clientId, content ){
     	content = content || {};
     	
     	var previous_bet = content.bet;
-    	var next_player = ; //get next player in order to bet
-
-    	//send message to all clients
-    	var new_turn = {
-    		'last_bet' : previous_bet,
-    		'player_id' : next_player
+    	var next_player = ; //get next player in order to bet ( something.getNextPlayer( clientId ); )
+		
+		var new_turn = {
+    			'last_bet' : previous_bet,
+    			'player_id' : next_player
     	};
-    	CastFramework.sendMessage( allIds, 'turn', new_turn );
+    	
+    	game.players().forEach( function( player ) {  //send message to all clients
+    		CastFramework.sendMessage( player.id, 'turn', new_turn );
+    	});
     });
+
 });
