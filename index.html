@@ -9,6 +9,10 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- include the cast framework! -->
     <script src="js/framework/CastFramework.js"></script>
+    <!-- include view models -->
+    <script src="js/viewModels/Game.js"></script>
+    <script src="js/viewModels/Hand.js"></script>
+    <script src="js/viewModels/Player.js"></script>
     <!-- include JS file(s) -->
     <script src="js/main.js"></script>
     <script src="js/cards.js"></script>
@@ -20,5 +24,9 @@
         <h1>hello, world.</h1>
         <span id="status">uh oh...castframework didn't start!</span>
     </div>
+    <script>
+        var game = new Game();
+        ko.applyBindings(game);
+    </script>
 </body>
 </html>

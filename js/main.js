@@ -4,6 +4,18 @@ $(CastFramework).ready(function() {
     $('#status').text("it's working! yay!");
 
     $(CastFramework).on("join", function(event, clientId, content) {
+    	content = content || {};
+		// add the player to the list of players (if they aren't already in it)
+		var push = true;
+		console.dir(game.players());
+		game.players().forEach(function(player) {
+			if(player.id === clientId) {
+				push = false;
+			}
+		});
+		if(push) {
+			game.players.push(new Player(clientId, content.name || null));
+		}
 	 	CastFramework.sendMessage(clientId, "exampleCommand", "hello!");
 	 });
 
