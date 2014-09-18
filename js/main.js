@@ -19,8 +19,7 @@ $(CastFramework).ready(function() {
 	 	CastFramework.sendMessage(clientId, "exampleCommand", "hello!");
 	 });
 
-    $(CastFramework).on("start", function(event, clientId, content) {
-        console.dir("sdfsf");
+    $(CastFramework).on("start_hand", function(event, clientId, content) {
     	content = content || {};
     	if(content.aiPlayers) {
     		for(int i = 0; i < content.aiPlayers; i++) {
