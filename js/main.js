@@ -27,7 +27,7 @@ $(CastFramework).ready(function() {
     	
     	var previous_bet = content.bet;
 
-        var current_index = null;
+        var current_index = 0;
         for( var x = 0; x < game.players().length; x++ ){ //get index of current player in array
             if( game.players()[x].id === clientId ){
                 current_index = x;
