@@ -26,7 +26,15 @@ $(CastFramework).ready(function() {
     	content = content || {};
     	
     	var previous_bet = content.bet;
-        var current_index = game.players().indexOf( clientId );
+
+        var current_index = null;
+        for( var x = 0; x < game.players().length; x++ ){ //get index of current player in array
+            if( game.players()[x].id === clientId ){
+                current_index = x;
+                break;
+            }
+        }
+
         var num_players = game.players.length;
     	var next_player = game.players()[ (current_index + 1) % num_players ]; //get next player in order
 		
