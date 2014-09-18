@@ -21,4 +21,31 @@ $(CastFramework).ready(function() {
 	 	CastFramework.sendMessage(clientId, "exampleCommand", "hello!");
 	 });
 
+    /*Signal from android that a turn is complete*/
+    $( CastFramework ).on( 'my_turn', function( event, clientId, content ){
+    	content = content || {};
+    	
+    	var previous_bet = content.bet;
+
+        var current_index = 0;
+        for( var x = 0; x < game.players().length; x++ ){ //get index of current player in array
+            if( game.players()[x].id === clientId ){
+                current_index = x;
+                break;
+            }
+        }
+
+        var num_players = game.players.length;
+    	var next_player = game.players()[ (current_index + 1) % num_players ]; //get next player in order
+		
+		var new_turn = {
+    			'last_bet' : previous_bet,
+    			'player_id' : next_player.id
+    	};
+    	
+    	game.players().forEach( function( player ) {  //send message to all clients
+    		CastFramework.sendMessage( player.id, 'turn', new_turn );
+    	});
+    });
+
 });
