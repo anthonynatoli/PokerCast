@@ -3,6 +3,8 @@ $(CastFramework).ready(function() {
     $(document.body).css("background-color", "#1693A5");
     $('#status').text("it's working! yay!");
 
+    console.log( 'The deck: ' + JSON.stringify( cards ) );
+
     $(CastFramework).on("join", function(event, clientId, content) {
     	content = content || {};
 		// add the player to the list of players (if they aren't already in it)
