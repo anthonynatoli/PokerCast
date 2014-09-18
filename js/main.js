@@ -20,6 +20,7 @@ $(CastFramework).ready(function() {
 	 });
 
     $(CastFramework).on("start", function(event, clientId, content) {
+        console.dir("sdfsf");
     	content = content || {};
     	if(content.aiPlayers) {
     		for(int i = 0; i < content.aiPlayers; i++) {
