@@ -20,6 +20,7 @@ $(CastFramework).ready(function() {
 	 });
 
     $(CastFramework).on("start_hand", function(event, clientId, content) {
+        console.log("MOUSE!");
     	content = content || {};
     	if(content.aiPlayers) {
     		for(int i = 0; i < content.aiPlayers; i++) {
