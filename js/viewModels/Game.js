@@ -1,5 +1,6 @@
 function Game() {
 	var self = this;
-	self.players = ko.observableArray([]);
+	self.activePlayers = ko.observableArray([]);
+	self.inactivePlayers = ko.observableArray([]);
 	self.hand = null;
 }
