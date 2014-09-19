@@ -22,10 +22,9 @@ $(CastFramework).ready(function() {
 	 });
 
     $(CastFramework).on("start_hand", function(event, clientId, content) {
-        console.log("MOUSE!");
     	content = content || {};
     	if(content.aiPlayers) {
-    		for(int i = 0; i < content.aiPlayers; i++) {
+    		for(var i = 0; i < content.aiPlayers; i++) {
     			game.players().push(new AIPlayer(i));
     		}
     	}

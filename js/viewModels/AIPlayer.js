@@ -1,5 +1,5 @@
 function AIPlayer(id) {
-	Player.apply(this, ['aiPlayer'+i, names.splice(Math.floor(Math.random()*name.length),1)[0]])
+	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length),1)[0]])
 }
 
 var names = [
