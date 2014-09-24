@@ -54,6 +54,8 @@ $(CastFramework).ready(function() {
     $(CastFramework).on("start_hand", function(event, clientId, content) {
     	content = content || {};
 
+        var startingPot = 0;
+
         // create AIPlayers
     	if(content.aiPlayers) {
     		for(var i = 0; i < content.aiPlayers; i++) {
@@ -62,7 +64,7 @@ $(CastFramework).ready(function() {
     	}
 
         // create a Deck, a Hand, and give each player cards and chips
-        game.hand = new Hand(new Deck(), content.chipsPerPlayer);
+        game.hand = new Hand(new Deck(), content.chipsPerPlayer, startingPot);
         game.activePlayers().forEach(function(player) {
             // give each player two cards
             player.cards.push(game.hand.deck.getCard());
@@ -112,6 +114,9 @@ $(CastFramework).ready(function() {
     }
 
     function handleBet(id, bet) {
+        // Add the current bet to the current hand's pot
+        game.hand.pot += bet;
+
         var previous_bet = bet;
 
         var current_index = 0;
