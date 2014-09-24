@@ -53,11 +53,15 @@ $(CastFramework).ready(function() {
 
     $(CastFramework).on("start_hand", function(event, clientId, content) {
     	content = content || {};
+
+        // create AIPlayers
     	if(content.aiPlayers) {
     		for(var i = 0; i < content.aiPlayers; i++) {
     			game.activePlayers().push(new AIPlayer(i));
     		}
     	}
+
+        // create a Deck, a Hand, and give each player cards and chips
         game.hand = new Hand(new Deck(), content.chipsPerPlayer);
         game.activePlayers().forEach(function(player) {
             // give each player two cards
@@ -73,7 +77,14 @@ $(CastFramework).ready(function() {
                 });
             }
         });
-    	console.dir(game.activePlayers());
+        console.dir(game.activePlayers());
+
+        // put 3 cards on the table
+        game.cardsOnTable.push(game.hand.deck.getCard());
+        game.cardsOnTable.push(game.hand.deck.getCard());
+        game.cardsOnTable.push(game.hand.deck.getCard());
+
+        // choose a player at random and start the betting loop
         var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
         newTurn(firstPlayer, 0);
     });
