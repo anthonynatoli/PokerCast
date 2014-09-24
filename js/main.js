@@ -80,9 +80,9 @@ $(CastFramework).ready(function() {
         console.dir(game.activePlayers());
 
         // put 3 cards on the table
-        game.cardsOnTable.push(game.hand.deck.getCard());
-        game.cardsOnTable.push(game.hand.deck.getCard());
-        game.cardsOnTable.push(game.hand.deck.getCard());
+        game.hand.cardsOnTable.push(game.hand.deck.getCard());
+        game.hand.cardsOnTable.push(game.hand.deck.getCard());
+        game.hand.cardsOnTable.push(game.hand.deck.getCard());
 
         // choose a player at random and start the betting loop
         var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
