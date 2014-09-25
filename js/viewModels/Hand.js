@@ -3,4 +3,5 @@ function Hand(deck, chipsPerPlayer) {
 	self.deck = deck || [];
 	self.chipsPerPlayer = chipsPerPlayer || 50;
 	self.cardsOnTable = ko.observableArray([]);
+	self.currentPlayer = ko.observable();
 }

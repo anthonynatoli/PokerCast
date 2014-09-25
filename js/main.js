@@ -7,7 +7,7 @@ $(CastFramework).ready(function() {
     	content = content || {};
 
         // If the hand is not null, the game has started
-        var game_started = game.hand != null;
+        var game_started = game.hand() != null;
 
 		// add the player to the list of players (if they aren't already in it)
 		var push = true;
@@ -57,17 +57,17 @@ $(CastFramework).ready(function() {
         // create AIPlayers
     	if(content.aiPlayers) {
     		for(var i = 0; i < content.aiPlayers; i++) {
-    			game.activePlayers().push(new AIPlayer(i));
+    			game.activePlayers.push(new AIPlayer(i));
     		}
     	}
 
         // create a Deck, a Hand, and give each player cards and chips
-        game.hand = new Hand(new Deck(), content.chipsPerPlayer);
+        game.hand(new Hand(new Deck(), content.chipsPerPlayer));
         game.activePlayers().forEach(function(player) {
             // give each player two cards
-            player.cards.push(game.hand.deck.getCard());
-            player.cards.push(game.hand.deck.getCard());
-            player.chips = game.hand.chipsPerPlayer;
+            player.cards.push(game.hand().deck.getCard());
+            player.cards.push(game.hand().deck.getCard());
+            player.chips = game.hand().chipsPerPlayer;
 
             if(player.type != 'AIPlayer') {
                 // AIPlayers don't have ids, so don't send them messages!
@@ -80,9 +80,9 @@ $(CastFramework).ready(function() {
         console.dir(game.activePlayers());
 
         // put 3 cards on the table
-        game.hand.cardsOnTable.push(game.hand.deck.getCard());
-        game.hand.cardsOnTable.push(game.hand.deck.getCard());
-        game.hand.cardsOnTable.push(game.hand.deck.getCard());
+        game.hand().cardsOnTable.push(game.hand().deck.getCard());
+        game.hand().cardsOnTable.push(game.hand().deck.getCard());
+        game.hand().cardsOnTable.push(game.hand().deck.getCard());
 
         // choose a player at random and start the betting loop
         var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
@@ -96,6 +96,9 @@ $(CastFramework).ready(function() {
     });
 
     function newTurn(player, bet) {
+        // update whose turn it is
+        game.hand().currentPlayer(player);
+
         // create a new turn message
         var new_turn = {
                 'last_bet' : bet,
@@ -107,7 +110,9 @@ $(CastFramework).ready(function() {
 
         // if the player is an AI player, then make them bet
         if(player.type == 'AIPlayer') {
-            handleBet(player.id, player.bet());
+            window.setTimeout(function() {
+                handleBet(player.id, player.bet());
+            }, 2000);
         }
     }
 
