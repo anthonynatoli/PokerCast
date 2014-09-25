@@ -4,5 +4,7 @@ function Player(id, name) {
 	self.id = id;
 	self.name = name || "";
 	self.chips = 0;
+	self.bet = 0;
+	self.hadTurn = false;
 	self.cards = [];
 }
