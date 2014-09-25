@@ -81,4 +81,18 @@ $(CastFramework).ready(function() {
     	});
     });
 
+    function end_hand( winner_id ){
+        var winnings = {
+            'winner_id': winner_id,
+            'pot_value': emptyPot()
+        }
+        CastFramework.broadcastMessage( 'end_hand', winnings );
+    }
+
+    function emptyPot() {
+        var val = Game.pot;
+        Game.pot = 0;
+        return val;
+    }
+
 });
