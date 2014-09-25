@@ -72,7 +72,8 @@ $(CastFramework).ready(function() {
             if(player.type != 'AIPlayer') {
                 // AIPlayers don't have ids, so don't send them messages!
                 CastFramework.sendMessage( player.id, 'hand', {
-                    cards: player.cards,
+                    card1: ""+player.cards[0].suit+player.cards[0].value,
+                    card2: ""+player.cards[1].suit+player.cards[1].value,
                     chips: player.chips
                 });
             }
