@@ -114,10 +114,11 @@ $(CastFramework).ready(function() {
     }
 
     function handleBet(id, bet) {
-        // Add the current bet to the current hand's pot
-        game.hand.pot += bet;
-
         var previous_bet = bet;
+
+        // Add the current bet to the current hand's pot
+        if (previous_bet != -1) 
+            game.hand.pot += previous_bet;
 
         var current_index = 0;
         for( var x = 0; x < game.activePlayers().length; x++ ){ //get index of current player in array
@@ -127,10 +128,72 @@ $(CastFramework).ready(function() {
             }
         }
 
+        var prev_player = game.activePlayers()[current_index];
+
+        // Update the players total bet amount
+        if (previous_bet == -1) 
+            prev_player.bet == -1; // Player folded
+        else {
+            prev_player.bet += previous_bet;
+            prev_player.chips -= previous_bet;
+
+            // TODO: Implement All-In functionality
+            if (prev_player.chips == 0) {
+                // All In??
+            }
+            // TODO: Implement Error Checking
+            else if (prev_player.chips < 0) {
+                // Throw Error
+            }
+        }
+        
+        prev_player.hadTurn = true;
+
+        // Checks to see if the round is over
+        if(checkRoundOver()) {
+            if (++game.hand.round >= 4) { // Hand is over
+                endHand();
+                return;
+            } 
+
+            previous_bet = 0;
+        }
+
         var num_players = game.activePlayers().length;
         var next_player = game.activePlayers()[ (current_index + 1) % num_players ]; //get next player in order
         
         newTurn(next_player, previous_bet);
+    }
+
+    /* Checks to see if the round is over by comparing
+       all active players' current bets. If their bets match or 
+       have folded (bet == -1), the round is over */
+    function checkRoundOver() {
+        var betToCompare = -1;
+
+        game.activePlayers().forEach(function(player) {
+            // Checks if a player has bet yet
+            if (!player.hadTurn)
+                return false;
+            
+            // Checks if a player has folded
+            if (player.bet == -1)
+                continue;
+
+            // Gets the first player's bet amount and compare it with the others
+            if (betToCompare == -1)
+                betToCompare = player.bet;
+            else if (betToCompare != player.bet)
+                return false;
+        });
+
+        return true;
+    }
+
+     /* Check who won the hand
+       and if the game is over */
+    function endHand() {
+        // TODO: IMPLEMENT ME
     }
 
 });
