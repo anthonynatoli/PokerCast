@@ -23,9 +23,36 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <div id="wrapper">
-        <h1>hello, world.</h1>
-        <span id="status">uh oh...castframework didn't start!</span>
+    <div id="table">
+        <div id="cards">
+            <!-- ko ifnot: game.hand() -->
+                <h1>Waiting for players...</h1>
+            <!-- /ko -->
+            <!-- ko if: game.hand() -->
+                <!-- ko foreach: game.hand().cardsOnTable -->
+                    <img class="card" data-bind="
+                        text: value,
+                        attr: {
+                            'src': 'img/cards/'+suit+value+'.png'
+                        }">
+                <!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <div id="score" data-bind="visible: game.activePlayers().length > 0">
+            <!-- ko foreach: game.activePlayers -->
+            <div class="floatingDialog" data-bind="
+                css: {
+                    turn: isTurn
+                }
+            ">
+                <div class="player-name" data-bind="
+                    text: name || 'Player ' + ($index()+1)
+                ">
+                </div>
+                <div class="player-chips" data-bind="text: chips || 0"></div>
+            </div>
+            <!-- /ko -->
+        </div>
     </div>
     <script>
         var game = new Game();
