@@ -121,7 +121,7 @@ $(CastFramework).ready(function() {
             game.hand.pot += previous_bet;
 
         var current_index = 0;
-        for( var x = 0; x < game.activePlayers().length; x++ ){ //get index of current player in array
+        for( var x = 0; x < game.activePlayers().length; x++ ){ // Get index of current player in array
             if( game.activePlayers()[x].id === id ){
                 current_index = x;
                 break;
@@ -130,7 +130,7 @@ $(CastFramework).ready(function() {
 
         var prev_player = game.activePlayers()[current_index];
 
-        // Update the players total bet amount
+        // Update the players total bet/chips amount
         if (previous_bet == -1) 
             prev_player.bet == -1; // Player folded
         else {
@@ -154,13 +154,29 @@ $(CastFramework).ready(function() {
             if (++game.hand.round >= 4) { // Hand is over
                 endHand();
                 return;
-            } 
+            }
 
+            endRound();
             previous_bet = 0;
         }
 
         var num_players = game.activePlayers().length;
-        var next_player = game.activePlayers()[ (current_index + 1) % num_players ]; //get next player in order
+        var next_player = null;  
+
+        // Get next player in order (who hasn't folded)
+        for (var x = 1; x < num_players; x++) {
+            next_player = game.activePlayers()[ (current_index + x) % num_players ];
+
+            if (next_player.bet != -1)
+                break;
+        }
+
+        /* This shouldn't happen
+          (should be caught in checkRoundOver()) */
+        if (next_player == null || next_player.bet == -1) {
+            endHand();
+            return;
+        }
         
         newTurn(next_player, previous_bet);
     }
@@ -190,6 +206,13 @@ $(CastFramework).ready(function() {
         return true;
     }
 
+    function endRound() {
+        game.activePlayers().forEach(function(player) {
+            player.hadTurn = false;
+        })
+
+        game.hand.cardsOnTable.push(game.hand.deck.getCard());
+    }
      /* Check who won the hand
        and if the game is over */
     function endHand() {
