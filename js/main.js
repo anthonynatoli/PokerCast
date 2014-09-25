@@ -192,12 +192,9 @@ $(CastFramework).ready(function() {
             if (!player.hadTurn)
                 return false;
             
-            // Checks if a player has folded
-            if (player.bet == -1)
-                continue;
-
-            // Gets the first player's bet amount and compare it with the others
-            if (betToCompare == -1)
+            // Checks if a player has folded/has equal bets
+            if (player.bet == -1);
+            else if (betToCompare == -1)
                 betToCompare = player.bet;
             else if (betToCompare != player.bet)
                 return false;
@@ -209,7 +206,7 @@ $(CastFramework).ready(function() {
     function endRound() {
         game.activePlayers().forEach(function(player) {
             player.hadTurn = false;
-        })
+        });
 
         game.hand.cardsOnTable.push(game.hand.deck.getCard());
     }
