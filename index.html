@@ -36,7 +36,9 @@
                             'src': 'img/cards/'+suit+value+'.png'
                         }">
                 <!-- /ko -->
-                <h1><span data-bind="text: game.hand().pot"></h1>
+                <div id="pot">
+                    <div class="floatingDialog" style="font-size:50px; font-weight:bold" data-bind="text: game.hand().pot"></div>
+                </div>
             <!-- /ko -->
         </div>
         <div id="score" data-bind="visible: game.activePlayers().length > 0">
