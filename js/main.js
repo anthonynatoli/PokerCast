@@ -81,12 +81,9 @@ $(CastFramework).ready(function() {
             }
         });
         console.dir(game.activePlayers());
+    });
 
-        // put 3 cards on the table
-        game.hand().cardsOnTable.push(game.hand().deck().getCard());
-        game.hand().cardsOnTable.push(game.hand().deck().getCard());
-        game.hand().cardsOnTable.push(game.hand().deck().getCard());
-
+    $(CastFramework).on("hand_received", function(event, clientId, content) {
         // choose a player at random and start the betting loop
         var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
         newTurn(firstPlayer, 0);
@@ -214,6 +211,12 @@ $(CastFramework).ready(function() {
             player.hadTurn = false;
         });
 
+        if(game.hand().cardsOnTable().length == 0) {
+            // first time, put 3 cards out
+            game.hand().cardsOnTable.push(game.hand().deck().getCard());
+            game.hand().cardsOnTable.push(game.hand().deck().getCard());
+        }
+        // always put one card out
         game.hand().cardsOnTable.push(game.hand().deck().getCard());
     }
      /* Check who won the hand
