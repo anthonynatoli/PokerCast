@@ -83,10 +83,14 @@ $(CastFramework).ready(function() {
         console.dir(game.activePlayers());
     });
 
+    var received = false;
     $(CastFramework).on("hand_received", function(event, clientId, content) {
         // choose a player at random and start the betting loop
-        var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
-        newTurn(firstPlayer, 0);
+        if(!received) {
+            received = true;
+            var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
+            newTurn(firstPlayer, 0);
+        }
     });
 
     /*Signal from android that a turn is complete*/
