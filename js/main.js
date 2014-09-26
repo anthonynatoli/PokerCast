@@ -194,7 +194,8 @@ $(CastFramework).ready(function() {
     function checkRoundOver() {
         var betToCompare = -1;
 
-        game.activePlayers().forEach(function(player) {
+        for(var i = 0; i < game.activePlayers().length; i++) {
+            var player = game.activePlayers()[i];
             // Checks if a player has bet yet
             if (!player.hadTurn)
                 return false;
@@ -205,7 +206,7 @@ $(CastFramework).ready(function() {
                 betToCompare = player.bet();
             else if (betToCompare != player.bet())
                 return false;
-        });
+        }
 
         return true;
     }
