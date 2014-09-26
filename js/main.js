@@ -69,7 +69,7 @@ $(CastFramework).ready(function() {
             // give each player two cards
             player.cards.push(game.hand().deck().getCard());
             player.cards.push(game.hand().deck().getCard());
-            player.chips = game.hand().chipsPerPlayer;
+            player.chips(game.hand().chipsPerPlayer);
 
             if(player.type != 'AIPlayer') {
                 // AIPlayers don't have ids, so don't send them messages!
