@@ -214,7 +214,7 @@ $(CastFramework).ready(function() {
             player.hadTurn = false;
         });
 
-        game.hand().cardsOnTable.push(game.hand.deck.getCard());
+        game.hand().cardsOnTable.push(game.hand().deck().getCard());
     }
      /* Check who won the hand
        and if the game is over */
