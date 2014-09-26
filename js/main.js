@@ -124,7 +124,7 @@ $(CastFramework).ready(function() {
 
         // Add the current bet to the current hand's pot
         if (previous_bet != -1) 
-            game.hand().pot() += previous_bet;
+            game.hand().pot(game.hand().pot()+previous_bet);
 
         var current_index = 0;
         for( var x = 0; x < game.activePlayers().length; x++ ){ // Get index of current player in array
@@ -140,8 +140,8 @@ $(CastFramework).ready(function() {
         if (previous_bet == -1) 
             prev_player.bet() == -1; // Player folded
         else {
-            prev_player.bet() += previous_bet;
-            prev_player.chips() -= previous_bet;
+            prev_player.bet(prev_player.bet()+previous_bet);
+            prev_player.chips(prev_player.chips()-previous_bet);
 
             // TODO: Implement All-In functionality
             if (prev_player.chips() == 0) {
@@ -157,7 +157,7 @@ $(CastFramework).ready(function() {
 
         // Checks to see if the round is over
         if(checkRoundOver()) {
-            if (++game.hand.round >= 4) { // Hand is over
+            if (++game.hand().round >= 4) { // Hand is over
                 endHand();
                 return;
             }
@@ -232,8 +232,8 @@ $(CastFramework).ready(function() {
     }
 
     function emptyPot() {
-        var val = game.hand().pot;
-        game.hand().pot = 0;
+        var val = game.hand().pot();
+        game.hand().pot(0);
         return val;
     }
 
