@@ -139,7 +139,7 @@ $(CastFramework).ready(function() {
 
         // Update the players total bet/chips amount
         if (previous_bet == -1) 
-            prev_player.bet() == -1; // Player folded
+            prev_player.bet(-1); // Player folded
         else {
             prev_player.bet(prev_player.bet()+previous_bet);
             prev_player.chips(prev_player.chips()-previous_bet);
