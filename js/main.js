@@ -213,7 +213,9 @@ $(CastFramework).ready(function() {
 
     function endRound() {
         game.activePlayers().forEach(function(player) {
-            player.hadTurn = false;
+            if(player.bet() != -1) {
+                player.hadTurn = false;
+            }
         });
 
         if(game.hand().cardsOnTable().length == 0) {
