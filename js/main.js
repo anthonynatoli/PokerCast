@@ -220,13 +220,14 @@ $(CastFramework).ready(function() {
        and if the game is over */
     function endHand() {
         // TODO: IMPLEMENT ME
-        var winner_id = determineWinner();
+        var winner = determineWinner();
         var pot_value = emptyPot();
 
         var winnings = {
-            'winner_id': winner_id,
+            'winner_id': winner.id,
+            'winner_name': winner.name,
             'pot_value': pot_value
-        }
+        };
 
         CastFramework.broadcastMessage( 'end_hand', winnings );
     }
