@@ -158,7 +158,8 @@ $(CastFramework).ready(function() {
 
         // Checks to see if the round is over
         if(checkRoundOver()) {
-            if (++game.hand().round >= 4) { // Hand is over
+            game.hand().round(game.hand().round()+1);
+            if (game.hand().round() >= 4) { // Hand is over
                 endHand();
                 return;
             }
