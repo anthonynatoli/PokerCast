@@ -174,7 +174,7 @@ $(CastFramework).ready(function() {
         for (var x = 1; x < num_players; x++) {
             next_player = game.activePlayers()[ (current_index + x) % num_players ];
 
-            if (next_player.bet != -1)
+            if (next_player.bet() != -1)
                 break;
         }
 
