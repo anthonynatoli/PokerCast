@@ -36,6 +36,7 @@
                             'src': 'img/cards/'+suit+value+'.png'
                         }">
                 <!-- /ko -->
+                <h1><span data-bind="text: game.pot"></h1>
             <!-- /ko -->
         </div>
         <div id="score" data-bind="visible: game.activePlayers().length > 0">
@@ -49,7 +50,7 @@
                     text: name || 'Player ' + ($index()+1)
                 ">
                 </div>
-                <div class="player-chips" data-bind="text: chips || 0"></div>
+                <div class="player-chips" data-bind="text: bet"></div>
             </div>
             <!-- /ko -->
         </div>
