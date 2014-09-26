@@ -36,7 +36,7 @@
                             'src': 'img/cards/'+suit+value+'.png'
                         }">
                 <!-- /ko -->
-                <h1><span data-bind="text: game.pot"></h1>
+                <h1><span data-bind="text: game.hand().pot"></h1>
             <!-- /ko -->
         </div>
         <div id="score" data-bind="visible: game.activePlayers().length > 0">
