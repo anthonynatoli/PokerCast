@@ -76,7 +76,7 @@ $(CastFramework).ready(function() {
                 CastFramework.sendMessage( player.id, 'hand', {
                     card1: ""+player.cards[0].suit+player.cards[0].value,
                     card2: ""+player.cards[1].suit+player.cards[1].value,
-                    chips: player.chips
+                    chips: player.chips()
                 });
             }
         });
