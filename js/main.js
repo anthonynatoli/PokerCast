@@ -249,10 +249,4 @@ $(CastFramework).ready(function() {
         return val;
     }
 
-    function determineWinner() {
-        var winner = game.activePlayers()[0];
-
-        return winner;
-    }
-
 });
