@@ -85,8 +85,37 @@ function determineHand(cards){
 
 // Sorts all 7 cards in descending order
 function sortCards(playerCards, tableCards) {
-	//TODO: IMPLEMENT
 	var sortedCards = [];
+	
+	playerCards.forEach(function(card) {
+		sortedCards.push(switchRoyalCard(card));
+	});
+	tableCards.forEach(function(card) {
+		sortedCards.push(switchRoyalCard(card));
+	});
+
+	sortedCards.sort(function (card1, card2) {
+		return card2.value - card1.value;
+	});
 
 	return sortedCards;
+}
+
+/* Changes all of the char values and k,q,j,A
+   to comparable integers as a new object */
+function switchRoyalCard(card) {
+	var cardValue = card['value'];
+
+	switch (card['value']) {
+		case 'j': cardValue = 11;
+			break;
+		case 'q': cardValue = 12;
+			break;
+		case 'k': cardValue = 13;
+			break;
+		case '1': cardValue = 14;
+			break;
+	}
+
+	return { value: parseInt(cardValue), suit: card['suit'] };
 }
