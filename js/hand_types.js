@@ -113,8 +113,37 @@ function checkStraightFlush(cards) {
 	return null;
 }
 
+// Four of a kind algorithm
 function checkFourKind(cards) {
+	var prevCard = cards[0];
+	var highUsedValue = prevCard.value;
+	var highValue = prevCard.value;
+	var numInRow = 1;
 
+	for (var i = 1; i < cards.length; i++) {
+		var currCard = cards[i];
+
+		/* If the last card == the current card increase the count
+		   and check if it's the 4th matching */
+		if (prevCard.value == currCard.value) {
+			if (++numInRow >= 4) {
+				highUsedValue = currCard.value; // It's the same number as the other 3
+				/* If the current highValue is the same as the current card
+				   we must find the next highest unused value */
+				if (highValue == currCard.value && i != cards.length - 1)
+					highValue = cards[i+1].value;
+
+				return new Array(Rank.FourKind, highUsedValue, highValue);
+			}
+		}
+		// Reset counter and set the highcard to the first card
+		else {
+			highValue = cards[0].value;
+			numInRow = 1;
+		}
+
+		prevCard = currCard;
+	}
 	return null;
 }
 
