@@ -1,14 +1,49 @@
-function isRoyalFlush( cards ){
-	//determine if a hand is a royal flush
+function checkRoyalFlush(cards) {
 
+	return null;
 }
 
-function isTwoPair( cards ){
+function checkStraightFlush(cards) {
 
+	return null;
 }
 
-function isOnePair( cards ){
+function checkFourKind(cards) {
 
+	return null;
 }
 
-//etc..
+function checkFullHouse(cards) {
+
+	return null;
+}
+
+function checkFlush(cards) {
+
+	return null;
+}
+
+function checkStraight(cards) {
+
+	return null;
+}
+
+function checkThreeKind(cards) {
+
+	return null;
+}
+
+function checkTwoPair(cards) {
+
+	return null;
+}
+
+function checkOnePair(cards) {
+
+	return null;
+}
+
+function getHighCard(cards) {
+
+	return null;
+}
