@@ -67,8 +67,49 @@ function checkRoyalFlush(cards) {
 	return null;
 }
 
+// Straight Flush algorithm
 function checkStraightFlush(cards) {
+	var suitCount = new Array(0,0,0,0);
+	var highVal = new Array(0,0,0,0);
+	var suitHolder = new Array(0,0,0,0);
 
+	for (var i = 0; i < cards.length; i++) {
+		var currCard = cards[i];
+		var suit = -1;
+
+		/* Keep track of which suits have been hit
+		  in the case of multiple suits of A,K,Q,J,10 */
+		switch(currCard.suit) {
+			case 'h': suit = H;
+				break;
+			case 's': suit = S;
+				break;
+			case 'c': suit = C;
+				break;
+			case 'd': suit = D;
+				break;
+		}
+
+		/* If the suit hasn't been hit yet
+		   add it */
+		if (suitHolder[suit] == 0) {
+			suitCount[suit] = 1;
+			highVal[suit] = currCard.value;
+		} 
+		// Check if the last value at this suit is 1 greater (ex: 14(A) is 1 greater than 13(K))
+		else if (suitHolder[suit] == currCard.value + 1) {
+			if (++suitCount[suit] >= 5) {
+				return new Array(Rank.StraightFlush, highVal[suit], highVal[suit]);
+			}
+		} 
+		// Reset the suit's counter
+		else {
+			highVal[suit] = currCard.value;
+			suitCount[suit] = 1;
+		}
+
+		suitHolder[suit] = currCard.value;
+	}
 	return null;
 }
 
