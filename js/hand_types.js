@@ -302,7 +302,7 @@ function checkThreeKind(cards) {
 				if (highValue == currCard.value && i != cards.length - 1)
 					highValue = cards[i+1].value;
 
-				return new [ Rank.ThreeKind, highUsedValue, highValue ];
+				return [ Rank.ThreeKind, highUsedValue, highValue ];
 			}
 		}
 		else {
@@ -381,5 +381,5 @@ function checkOnePair(cards) {
 // The user sucks if they need this method
 function getHighCard(cards) {
 	var highValue = cards[0].value;
-	return new Array(Rank.HighCard, highValue, highValue);
+	return [ Rank.HighCard, highValue, highValue ];
 }
