@@ -127,9 +127,10 @@ function checkFourKind(cards) {
 		   and check if it's the 4th matching */
 		if (prevCard.value == currCard.value) {
 			if (++numInRow >= 4) {
-				highUsedValue = currCard.value; // It's the same number as the other 3
-				/* If the current highValue is the same as the current card
-				   we must find the next highest unused value */
+				// It's the only used value
+				highUsedValue = currCard.value; 
+
+				// If the high card is a match card, we set it to the next card
 				if (highValue == currCard.value && i != cards.length - 1)
 					highValue = cards[i+1].value;
 
@@ -297,8 +298,7 @@ function checkThreeKind(cards) {
 				// The highest value in the 3 set is the matching value
 				highUsedValue = currCard.value;
 
-				/* If the high card is the same as the current card,
-				   we need to set it to the next card */
+				// If the high card is a match card, we set it to the next card
 				if (highValue == currCard.value && i != cards.length - 1)
 					highValue = cards[i+1].value;
 
@@ -318,7 +318,37 @@ function checkThreeKind(cards) {
 	return null;
 }
 
+// Two pair algorithm
 function checkTwoPair(cards) {
+	var prevCard = cards[0];
+	var highUsedValue = highValue = 0;
+	var matches = 0;
+
+	for (var i = 1; i < cards.length; i++) {
+		var currCard = cards[i];
+
+		if (prevCard.value == currCard.value) {
+			// The first match is the highest used value
+			highUsedValue = highUsedValue == 0 ? currCard.value : highUsedValue;
+
+			if (++matches == 2) {
+				// If the high card is a match card, we set it to the next card
+				if (highValue == currCard.value && i != cards.length - 1)
+					highValue = cards[i+1].value;
+
+				return new Array(Rank.TwoPair, highUsedValue, highValue);
+			}
+		}
+		// If the high card hasn't been set yet
+		else if (highValue == 0) {
+
+			/* If the first card isn't a match, set that as 
+			  highest value; else set it as the current value */
+			highValue = i == 1 ? prevCard.value : currCard.value;
+		}
+
+		prevCard = currCard;
+	}
 
 	return null;
 }
