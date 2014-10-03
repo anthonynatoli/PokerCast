@@ -283,7 +283,37 @@ function checkStraight(cards) {
 	return null;
 }
 
+// Three of a kind algorithm
 function checkThreeKind(cards) {
+	var prevCard = cards[0];
+	var highUsedValue = highValue = cards[0].value;
+	var numInRow = 1;
+
+	for (var i = 1; i < cards.length; i++) {
+		var currCard = cards[i];
+
+		if (prevCard.value == currCard.value) {
+			if (++numInRow == 3) {
+				// The highest value in the 3 set is the matching value
+				highUsedValue = currCard.value;
+
+				/* If the high card is the same as the current card,
+				   we need to set it to the next card */
+				if (highValue == currCard.value && i != cards.length - 1)
+					highValue = cards[i+1].value;
+
+				return new Array(Rank.ThreeKind, highUsedValue, highValue);
+			}
+		}
+		else {
+			// We know the first (highest) value in the
+			// array isn't in the 3-set.
+			highValue = cards[0].value;
+			numInRow = 1;
+		}
+
+		prevCard = currCard;
+	}
 
 	return null;
 }
