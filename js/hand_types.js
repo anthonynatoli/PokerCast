@@ -353,8 +353,28 @@ function checkTwoPair(cards) {
 	return null;
 }
 
+// One pair algorithm
 function checkOnePair(cards) {
+	var prevCard = cards[0];
+	var highValue = cards[0].value;
+	var highestValue = 0;
 
+	for (var i = 1; i < cards.length; i++) {
+		var currCard = cards[i];
+
+		if (prevCard.value == currCard.value) {
+			// The highest value card is the matching card
+			highUsedValue = currCard.value;
+
+			// If the high card is a match card, we set it to the next card
+			if (highValue == currCard.value && i != cards.length - 1)
+				highValue = cards[i+1].value;
+
+			return new Array(Rank.OnePair, highUsedValue, highValue);
+		}
+
+		prevCard = currCard;
+	}
 	return null;
 }
 
