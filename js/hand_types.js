@@ -147,7 +147,69 @@ function checkFourKind(cards) {
 	return null;
 }
 
+// Full House algorithm
 function checkFullHouse(cards) {
+	var prevCard = cards[0];
+	var highUsedValue = 0;
+	var twoValue = threeValue = cards[0].value;
+	var twoHit = threeHit = false;
+	var numInRow = 1;
+
+	for (var i = 1; i < cards.length; i++) {
+		var currCard = cards[i];
+
+		if (prevCard.value == currCard.value) {
+
+			/* If we have a match (two equal cards) we know
+			   that the value will be used in the full house
+			   so the highest value is the first matched card */
+			if (highUsedValue == 0)
+				highUsedValue = currCard.value;
+
+			/* If there are already 3 matching cards
+			   we know another match must be the 2 matching */
+			if (threeHit) {
+				twoHit = true;
+			}
+			/* If we have already matched two cards
+			   we check to see if there is another
+			   for the three match */
+			else if (twoHit) {
+				if (++numInRow == 3) {
+					threeValue = currCard.value;
+					threeHit = true;
+
+					/* If the two matching value is equal
+					   to the three matching value we must
+					   reset the two calculation */
+					if (threeValue == twoValue)
+						twoHit = false;
+				}
+			}
+			// If this card is the third match
+			else if (++numInRow == 3) {
+				threeValue = currCard.value;
+				threeHit = true;
+			}
+			// We know at least we have a two match
+			else {
+				twoValue = currCard.value;
+				twoHit = true;
+			}
+
+			// Check if there is a full house
+			if (threeHit && twoHit)
+				return new Array(Rank.FullHouse, highUsedValue, highUsedValue);
+
+		}
+		/* Reset the count of same values
+		   if the card values aren't equal */
+		else {
+			numInRow = 1;
+		}
+
+		prevCard = currCard;
+	}
 
 	return null;
 }
