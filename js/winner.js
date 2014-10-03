@@ -3,8 +3,8 @@
    checks their score against the previous player.
    Returns the player with the highest score */
 function determineWinner(){
-
-	var bestScore = {0, 0, 0}; // {Rank, HighestUsedCard, HighCard}
+	// TODO: Implement TIES
+	var bestScore = [ 0, 0, 0 ]; // {Rank, HighestUsedCard, HighCard}
 	var winner_index = 0;
 	var updateScore = false;
 	var cardsOnTable = game.hand().cardsOnTable();
@@ -19,8 +19,21 @@ function determineWinner(){
 		// Score is an arry in the form of {Rank, HighestUsedCard, HighCards
 	    var score = determineHand(cards);
 
-	    if (score[0] > bestScore[0] || score[1] > bestScore[1] || score[2] > bestScore[2]) {
-    		updateScore = true;
+	    // If the rank (royal flush, straight, etc.) is higher
+	    // than previous best then update score
+	    if (score[0] > bestScore[0]) {
+	    	updateScore = true;
+	    } 
+	    // If the rank is the same, compare highest used card
+	    else if (score[0] == bestScore[0]) {
+	    	if (score[1] > bestScore[1]) {
+	    		updateScore = true;
+	    	}
+	    	// If the highest used card is the same, compare the high card
+	    	else if (score[1] == bestScore[1]) {
+	    		if (score[2] > bestScore[2])
+	    			updateScore = true;
+	    	}
 	    }
 
 	    if (updateScore) {
@@ -41,7 +54,7 @@ function determineWinner(){
    a score array: {Rank, HighestUsedCard, HighCard} */
 function determineHand(cards){
 	
-	var score = {0, 0, 0};
+	var score = null;
 
 	score = checkRoyalFlush(cards);			// Royal Flush (9)
 	if (score != null)

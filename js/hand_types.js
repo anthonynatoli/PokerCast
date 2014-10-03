@@ -21,9 +21,9 @@ var H = 0, S = 1, C = 2, D = 3;
 
 // Royal Flush algorithm
 function checkRoyalFlush(cards) {
-	var suitCount = new Array(0,0,0,0);
-	var highVal = new Array(0,0,0,0);
-	var suitHolder = new Array(0,0,0,0);
+	var suitCount = [0, 0, 0, 0];
+	var highVal = [0, 0, 0, 0];
+	var suitHolder = [0, 0, 0, 0];
 	var suit = -1;
 
 	/* If the first (highest) card isn't
@@ -60,7 +60,7 @@ function checkRoyalFlush(cards) {
 		else if (suitHolder[suit] == currCard.value + 1) {
 			suitHolder[suit] = currCard.value;
 			if (++suitCount[suit] >= 5) {
-				return new Array(Rank.RoyalFlush, highVal[suit], highVal[suit]);
+				return [ Rank.RoyalFlush, highVal[suit], highVal[suit] ];
 			}
 		}
 	}
@@ -69,9 +69,9 @@ function checkRoyalFlush(cards) {
 
 // Straight Flush algorithm
 function checkStraightFlush(cards) {
-	var suitCount = new Array(0,0,0,0);
-	var highVal = new Array(0,0,0,0);
-	var suitHolder = new Array(0,0,0,0);
+	var suitCount = [0, 0, 0, 0];
+	var highVal = [0, 0, 0, 0];
+	var suitHolder = [0, 0, 0, 0];
 	var suit = -1;
 
 	for (var i = 0; i < cards.length; i++) {
@@ -99,7 +99,7 @@ function checkStraightFlush(cards) {
 		// Check if the last value at this suit is 1 greater (ex: 14(A) is 1 greater than 13(K))
 		else if (suitHolder[suit] == currCard.value + 1) {
 			if (++suitCount[suit] >= 5) {
-				return new Array(Rank.StraightFlush, highVal[suit], highVal[suit]);
+				return [ Rank.StraightFlush, highVal[suit], highVal[suit] ];
 			}
 		} 
 		// Reset the suit's counter
@@ -134,7 +134,7 @@ function checkFourKind(cards) {
 				if (highValue == currCard.value && i != cards.length - 1)
 					highValue = cards[i+1].value;
 
-				return new Array(Rank.FourKind, highUsedValue, highValue);
+				return [ Rank.FourKind, highUsedValue, highValue ];
 			}
 		}
 		// Reset counter and set the highcard to the first card
@@ -200,7 +200,7 @@ function checkFullHouse(cards) {
 
 			// Check if there is a full house
 			if (threeHit && twoHit)
-				return new Array(Rank.FullHouse, highUsedValue, highUsedValue);
+				return [ Rank.FullHouse, highUsedValue, highUsedValue ];
 
 		}
 		/* Reset the count of same values
@@ -217,8 +217,8 @@ function checkFullHouse(cards) {
 
 // Flush algorithm
 function checkFlush(cards) {
-	var suitCount = new Array(0,0,0,0);
-	var highestValCount = new Array(0,0,0,0);
+	var suitCount = [0, 0, 0, 0];
+	var highestValCount = [0, 0, 0, 0];
 	var suit = -1;
 
 	for (var i = 0; i < cards.length; i++) {
@@ -243,7 +243,7 @@ function checkFlush(cards) {
 
 		// If there is a flush
 		if (++suitCount[suit] >= 5) {
-			return new Array(Rank.Flush, highestValCount[suit], highestValCount[suit]);
+			return [ Rank.Flush, highestValCount[suit], highestValCount[suit] ];
 		}
 	}
 	return null;
@@ -270,7 +270,7 @@ function checkStraight(cards) {
 		  current value ex: 14(A) is 1 greater than 13(K)) */
 		if (prevCard.value == currCard.value + 1) {
 			if (++numInRow == 5)
-				return new Array(Rank.Straight, highUsedValue, highUsedValue);
+				return [ Rank.Straight, highUsedValue, highUsedValue ];
 		}
 		// There could be duplicate values that we want to skip
 		else if (prevCard.value != currCard.value) {
@@ -302,7 +302,7 @@ function checkThreeKind(cards) {
 				if (highValue == currCard.value && i != cards.length - 1)
 					highValue = cards[i+1].value;
 
-				return new Array(Rank.ThreeKind, highUsedValue, highValue);
+				return new [ Rank.ThreeKind, highUsedValue, highValue ];
 			}
 		}
 		else {
@@ -336,7 +336,7 @@ function checkTwoPair(cards) {
 				if (highValue == currCard.value && i != cards.length - 1)
 					highValue = cards[i+1].value;
 
-				return new Array(Rank.TwoPair, highUsedValue, highValue);
+				return [ Rank.TwoPair, highUsedValue, highValue ];
 			}
 		}
 		// If the high card hasn't been set yet
@@ -370,7 +370,7 @@ function checkOnePair(cards) {
 			if (highValue == currCard.value && i != cards.length - 1)
 				highValue = cards[i+1].value;
 
-			return new Array(Rank.OnePair, highUsedValue, highValue);
+			return [ Rank.OnePair, highUsedValue, highValue ];
 		}
 
 		prevCard = currCard;
