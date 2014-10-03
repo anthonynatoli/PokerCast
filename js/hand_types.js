@@ -24,6 +24,7 @@ function checkRoyalFlush(cards) {
 	var suitCount = new Array(0,0,0,0);
 	var highVal = new Array(0,0,0,0);
 	var suitHolder = new Array(0,0,0,0);
+	var suit = -1;
 
 	/* If the first (highest) card isn't
 	   an Ace, return null */
@@ -32,7 +33,6 @@ function checkRoyalFlush(cards) {
 
 	for (var i = 0; i < cards.length; i++) {
 		var currCard = cards[i];
-		var suit = -1;
 
 		/* Keep track of which suits have been hit
 		  in the case of multiple suits of A,K,Q,J,10 */
@@ -72,10 +72,10 @@ function checkStraightFlush(cards) {
 	var suitCount = new Array(0,0,0,0);
 	var highVal = new Array(0,0,0,0);
 	var suitHolder = new Array(0,0,0,0);
+	var suit = -1;
 
 	for (var i = 0; i < cards.length; i++) {
 		var currCard = cards[i];
-		var suit = -1;
 
 		/* Keep track of which suits have been hit
 		  in the case of multiple suits of A,K,Q,J,10 */
@@ -214,8 +214,37 @@ function checkFullHouse(cards) {
 	return null;
 }
 
+// Flush algorithm
 function checkFlush(cards) {
+	var suitCount = new Array(0,0,0,0);
+	var highestValCount = new Array(0,0,0,0);
+	var suit = -1;
 
+	for (var i = 0; i < cards.length; i++) {
+		var currCard = cards[i];
+
+		/* Keep track of which suits have been hit
+		  in the case of multiple suits of A,K,Q,J,10 */
+		switch (currCard.suit) {
+			case 'h': suit = H;
+			break;
+			case 's': suit = S;
+			break;
+			case 'c': suit = C;
+			break;
+			case 'd': suit = D;
+			break;
+		}
+
+		// Store the highest value of each suit
+		if (currCard.value > highestValCount[suit])
+			highestValCount[suit] = currCard.value;
+
+		// If there is a flush
+		if (++suitCount[suit] >= 5) {
+			return new Array(Rank.Flush, highestValCount[suit], highestValCount[suit]);
+		}
+	}
 	return null;
 }
 
