@@ -248,7 +248,37 @@ function checkFlush(cards) {
 	return null;
 }
 
+// Straight algorithm
 function checkStraight(cards) {
+	var prevCard = cards[0];
+	var highUsedValue = cards[0].value;
+	var numInRow = 1;
+
+	/* Since an Ace can wrap around (A,2,3,4,5) OR (10,J,Q,K,A),
+       if there is an ace, we also want to add a card to the very
+       	end of the cards array (the value 1) */
+	var addCard = highUsedValue == 14 ? 1 : 0;
+
+	for (var i = 1; i < cards.length + addCard; i++) {
+
+		/* if we are at the end of the array, we know we must test the low value
+		   of the ace. So we add a new card with the value 1 (suit doesn't matter) */
+		var currCard = i != cards.length ? cards[i] : { value: 1, suit: 'x'};
+
+		/* Check if the last value is 1 greater than the 
+		  current value ex: 14(A) is 1 greater than 13(K)) */
+		if (prevCard.value == currCard.value + 1) {
+			if (++numInRow == 5)
+				return new Array(Rank.Straight, highUsedValue, highUsedValue);
+		}
+		// There could be duplicate values that we want to skip
+		else if (prevCard.value != currCard.value) {
+			numInRow = 1;
+			highUsedValue = currCard.value;
+		}
+
+		prevCard = currCard;
+	}
 
 	return null;
 }
