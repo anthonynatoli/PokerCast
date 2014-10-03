@@ -378,7 +378,8 @@ function checkOnePair(cards) {
 	return null;
 }
 
+// The user sucks if they need this method
 function getHighCard(cards) {
-
-	return null;
+	var highValue = cards[0].value;
+	return new Array(Rank.HighCard, highValue, highValue);
 }
