@@ -245,6 +245,32 @@ $(CastFramework).ready(function() {
 
         //add pot to chip count of hand winner
         winner.chips += pot_value;
+
+        //check if game ends
+        var num_eligible_players = 0;
+        var startNewHand = false;
+        game.activePlayers().forEach( function( player ){
+            if( player.chips <= 0){
+                continue;
+                //remove player from game
+            }
+            else{ //if a player has chips, they are eligible for next hand
+                num_eligible_players++;
+                if( num_eligible_players > 1 ){ 
+                    //if more than one player is eligible, start a new hand
+                    startNewHand = true;
+                }
+            }
+        });
+        if( startNewHand ){
+            newHand();
+        }
+    }
+
+    function newHand(){
+        //kick players with 0 chips, add players waiting in queue
+        //give new players designated chip count, maintain chip count for old players
+
     }
 
     function emptyPot() {
