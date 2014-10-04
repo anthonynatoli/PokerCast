@@ -243,6 +243,8 @@ $(CastFramework).ready(function() {
 
         CastFramework.broadcastMessage( 'end_hand', winnings );
 
+        //add pot to chip count of hand winner
+        winner.chips += pot_value;
     }
 
     function emptyPot() {
