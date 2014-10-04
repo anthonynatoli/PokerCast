@@ -270,7 +270,44 @@ $(CastFramework).ready(function() {
     function newHand(){
         //kick players with 0 chips, add players waiting in queue
         //give new players designated chip count, maintain chip count for old players
+        var kick_players = [];
+        var x = 0;
+        var player = null;
+        var chipsPerPlayer = game.hand().chipsPerPlayer;
 
+        //remove ineligible players from activePlayer list
+        for( x = 0; x < game.activePlayers().length; x++ ){
+            player = game.activePlayers()[x];
+          
+            if( player.chips <= 0 ){
+                kick_players.push( player );
+                game.activePlayers().splice( x, 1 );
+            }
+        }
+        
+        //add queued players to active player list
+        for( x = 0; x < game.inactivePlayers().length; x++ ){
+            player = game.inactivePlayers()[x];
+            player.chips( chipsPerPlayer );
+
+            game.activePlayers().push( player );
+            game.inactivePlayers.splice( x, 1 );
+        }
+
+        //PUT THIS STUFF SOMEWHERE
+        /*player.cards.push(game.hand().deck().getCard());
+            player.cards.push(game.hand().deck().getCard());
+            player.chips(game.hand().chipsPerPlayer);
+
+            if(player.type != 'AIPlayer') {
+                // AIPlayers don't have ids, so don't send them messages!
+                CastFramework.sendMessage( player.id, 'hand', {
+                    card1: ""+player.cards[0].suit+player.cards[0].value,
+                    card2: ""+player.cards[1].suit+player.cards[1].value,
+                    chips: player.chips()
+                });
+            }
+            */
     }
 
     function emptyPot() {
