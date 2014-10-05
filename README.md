@@ -1,8 +1,8 @@
-PokerCast Receiver
-=========
+#PokerCast Receiver
 
-Setup (for development)
-------
+##Development & Local Testing
+
+###Setup (for development)
 <ol>
   <li>Install NodeJS (http://nodejs.org/)</li>
   <li>Clone this repo:
@@ -13,8 +13,7 @@ Setup (for development)
     </li>
 </ol>
 
-How To Run Locally
-------
+###How To Run Locally
 <ol>
   <li>Make sure you already followed the instructions <b>Setup (for development)</b></li>
   <li>In the root directory of the project,
@@ -23,8 +22,35 @@ How To Run Locally
   <li>Visit <b>http://localhost:9999</b> in your browser</li>
 </ol>
 
-Setup (for deployment)
--------
+##Testing
+
+###Setup (for deployment to your testing server)
+<ol>
+  <li>Install Heroku Toolbelt (http://toolbelt.heroku.com)</li>
+  <li>Make sure you are in the directory that you clone this repo into</li>
+  <li>Login to Heroku:
+    <pre><code>$ heroku login</code></pre>
+  </li>
+  <li>Add a remote for testing (this is a private server you can deploy to for testing):
+    <pre><code>$ git remote add [your-first-name] git@heroku.com:pokercast-[your-first-name].git</code></pre>
+  </li>
+</ol>
+
+###How To Deploy To Your Testing Server
+<ol>
+  <li>Make sure you already followed the instructions <b>Setup (for development)</b> and <b>Setup (for deployment to your testing server)</b></li>
+  <li>Login to Heroku:
+    <pre><code>$ heroku login</code></pre>
+  </li>
+  <li>In the root directory of the project, push to Heroku:
+      <pre><code>$ git push [your-first-name] master</code></pre>
+  </li>
+  <li>Visit <b>http://pokercast-[your-first-name].herokuapp.com</b> in your browser</li>
+</ol>
+
+##Deployment
+
+###Setup (for deployment to production)
 <ol>
   <li>Install Heroku Toolbelt (http://toolbelt.heroku.com)</li>
   <li>Make sure you are in the directory that you clone this repo into</li>
@@ -36,8 +62,7 @@ Setup (for deployment)
   </li>
 </ol>
 
-How To Deploy
-------
+###How To Deploy To Production
 <ol>
   <li>Make sure you already followed the instructions <b>Setup (for development)</b> and <b>Setup (for deployment)</b></li>
   <li>Login to Heroku:
