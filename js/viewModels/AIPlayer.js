@@ -2,8 +2,8 @@ function AIPlayer(id) {
 	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length),1)[0]])
 	var self = this;
 	self.type = "AIPlayer";
-	self.makeBet = function() {
-		return -1; // always fold
+	self.makeBet = function(bet) {
+		return bet; // always fold
 	}
 }
 

@@ -115,7 +115,7 @@ $(CastFramework).ready(function() {
         // if the player is an AI player, then make them bet
         if(player.type == 'AIPlayer') {
             window.setTimeout(function() {
-                handleBet(player.id, player.makeBet());
+                handleBet(player.id, player.makeBet(bet));
             }, 2000);
         }
     }
