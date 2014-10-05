@@ -3,7 +3,7 @@ function AIPlayer(id, chips) {
 	var self = this;
 	var savedChips = chips;
 	var handEval = Math.Random()*10;
-	var raised = false;
+	//var raised = false;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet) {
 		if ( bet == 0 && handEval < 6 ){
