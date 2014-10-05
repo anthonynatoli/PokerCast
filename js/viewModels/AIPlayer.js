@@ -24,7 +24,7 @@ function AIPlayer(id, chips) {
 				return bet + 1;
 			}
 			else {
-				raised = false;
+				//raised = false;
 				return bet;
 			}
 		}
@@ -37,7 +37,7 @@ function AIPlayer(id, chips) {
 				return bet + 1;
 			}
 			else {
-				raised = false;
+				//raised = false;
 				return bet;
 			}
 		}
