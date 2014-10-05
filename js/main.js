@@ -59,7 +59,7 @@ $(CastFramework).ready(function() {
         // create AIPlayers
     	if(content.aiPlayers) {
     		for(var i = 0; i < content.aiPlayers; i++) {
-    			game.activePlayers.push(new AIPlayer(i, game.hand().chipsPerPlayer));
+    			game.activePlayers.push(new AIPlayer(i, content.chipsPerPlayer));
     		}
     	}
 
