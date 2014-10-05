@@ -2,14 +2,33 @@ function AIPlayer(id, chips) {
 	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length),1)[0]])
 	var self = this;
 	var savedChips = chips;
+	var handEval = Math.Random()*10;
+	var raised = false;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet) {
-		//var handEval = Math.Random()*10;
-		//if ( bet == 0 ){
-		//	
-		//}
+		if ( bet == 0 && handEval < 6 ){
+			return 0;
+		}
+		if ( handEval < 3 ){
+			return -1;
+		}
+		if ( handEval < 6 && bet < savedChips/4 ){
+			return bet;
+		}
+		if ( handEval < 6 && bet > savedChips/4 ){
+			return -1;
+		}
+		if ( handEval < 9 && bet < savedChips/2 ){
+			return bet;
+		}
+		if ( handEval < 9 && bet > savedChips/2 ){
+			return -1;
+		}
+		else {
+			return savedChips;
+		}
 		//return bet; // always fold
-		return (savedChips/4);
+		//return (savedChips/4);
 	}
 }
 
