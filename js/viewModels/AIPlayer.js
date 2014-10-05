@@ -3,7 +3,7 @@ function AIPlayer(id, chips) {
 	var self = this;
 	var savedChips = chips;
 	var handEval = Math.random()*10;
-	//var raised = false;
+	var raised = false;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet) {
 		if ( bet == 0 && handEval < 6 ){
@@ -19,13 +19,27 @@ function AIPlayer(id, chips) {
 			return -1;
 		}
 		if ( handEval < 9 && bet < savedChips/2 ){
-			return bet;
+			if (raised == false){
+				raised = true;
+				return bet + 1;
+			}
+			else {
+				raised = false;
+				return bet;
+			}
 		}
 		if ( handEval < 9 && bet > savedChips/2 ){
 			return -1;
 		}
 		else {
-			return savedChips;
+			if (raised == false){
+				raised = true;
+				return bet + 1;
+			}
+			else {
+				raised = false;
+				return bet;
+			}
 		}
 		//return bet; // always fold
 		//return (savedChips/4);
