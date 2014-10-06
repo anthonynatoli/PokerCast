@@ -294,11 +294,12 @@ $(CastFramework).ready(function() {
             game.inactivePlayers.splice( x, 1 );
         }
 
-        //PUT THIS STUFF SOMEWHERE
-        /*player.cards.push(game.hand().deck().getCard());
+        
+        //distribute cards to players
+        game.activePlayers().forEach( function( player ){
             player.cards.push(game.hand().deck().getCard());
-            player.chips(game.hand().chipsPerPlayer);
-
+            player.cards.push(game.hand().deck().getCard());
+        
             if(player.type != 'AIPlayer') {
                 // AIPlayers don't have ids, so don't send them messages!
                 CastFramework.sendMessage( player.id, 'hand', {
@@ -307,7 +308,7 @@ $(CastFramework).ready(function() {
                     chips: player.chips()
                 });
             }
-            */
+        });
     }
 
     function emptyPot() {
