@@ -21,10 +21,12 @@ function AIPlayer(id, chips) {
 		if ( handEval < 9 && bet < savedChips/2 ){
 			if (raised == false){
 				raised = true;
+				console.log("Raised On: " + bet);
 				return bet + 1;
 			}
 			else {
-				//raised = false;
+				raised = false;
+				console.log("Not Raised: " + bet);
 				return bet;
 			}
 		}
@@ -34,10 +36,12 @@ function AIPlayer(id, chips) {
 		else {
 			if (raised == false){
 				raised = true;
+				console.log("Raised On: " + bet);
 				return bet + 1;
 			}
 			else {
-				//raised = false;
+				raised = false;
+				console.log("Not Raised: " + bet);
 				return bet;
 			}
 		}
