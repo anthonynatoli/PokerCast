@@ -3,6 +3,8 @@ $(CastFramework).ready(function() {
     $(document.body).css("background-color", "#1693A5");
     $('#status').text("it's working! yay!");
 
+	var totalBetForRound;
+
     $(CastFramework).on("join", function(event, clientId, content) {
     	content = content || {};
 
