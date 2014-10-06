@@ -291,7 +291,9 @@ $(CastFramework).ready(function() {
             game.inactivePlayers.splice( x, 1 );
         }
 
-        
+        received = false; //set global variable to false
+        //I don't see why the received variable is necessary
+
         //distribute cards to players
         game.activePlayers().forEach( function( player ){
             player.cards.push(game.hand().deck().getCard());
