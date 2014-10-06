@@ -244,7 +244,8 @@ $(CastFramework).ready(function() {
         CastFramework.broadcastMessage( 'end_hand', winnings );
 
         //add pot to chip count of hand winner
-        winner.chips += pot_value;
+        var winner_chips = winner.chips + pot_value;
+        winner.chips( winner_chips );
 
         //check if game ends
         var num_eligible_players = 0;
