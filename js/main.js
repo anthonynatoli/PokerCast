@@ -272,25 +272,25 @@ $(CastFramework).ready(function() {
         //give new players designated chip count, maintain chip count for old players
         var kick_players = [];
         var x = 0;
-        var player = null;
+        var temp_player = null;
         var chipsPerPlayer = game.hand().chipsPerPlayer;
 
         //remove ineligible players from activePlayer list
         for( x = 0; x < game.activePlayers().length; x++ ){
-            player = game.activePlayers()[x];
+            temp_player = game.activePlayers()[x];
           
-            if( player.chips <= 0 ){
-                kick_players.push( player );
+            if( temp_player.chips <= 0 ){
+                kick_players.push( temp_player );
                 game.activePlayers().splice( x, 1 );
             }
         }
         
         //add queued players to active player list
         for( x = 0; x < game.inactivePlayers().length; x++ ){
-            player = game.inactivePlayers()[x];
-            player.chips( chipsPerPlayer );
+            temp_player = game.inactivePlayers()[x];
+            temp_player.chips( chipsPerPlayer );
 
-            game.activePlayers().push( player );
+            game.activePlayers().push( temp_player );
             game.inactivePlayers.splice( x, 1 );
         }
 
