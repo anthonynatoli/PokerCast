@@ -251,11 +251,7 @@ $(CastFramework).ready(function() {
         var num_eligible_players = 0;
         var startNewHand = false;
         game.activePlayers().forEach( function( player ){
-            if( player.chips() <= 0){
-                continue;
-                //remove player from game
-            }
-            else{ //if a player has chips, they are eligible for next hand
+            if( player.chips() > 0){ //if a player has chips, they are eligible for next hand
                 num_eligible_players++;
                 if( num_eligible_players > 1 ){ 
                     //if more than one player is eligible, start a new hand
