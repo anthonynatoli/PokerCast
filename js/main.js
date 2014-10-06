@@ -251,7 +251,7 @@ $(CastFramework).ready(function() {
         var num_eligible_players = 0;
         var startNewHand = false;
         game.activePlayers().forEach( function( player ){
-            if( player.chips <= 0){
+            if( player.chips() <= 0){
                 continue;
                 //remove player from game
             }
@@ -280,7 +280,7 @@ $(CastFramework).ready(function() {
         for( x = 0; x < game.activePlayers().length; x++ ){
             temp_player = game.activePlayers()[x];
           
-            if( temp_player.chips <= 0 ){
+            if( temp_player.chips() <= 0 ){
                 kick_players.push( temp_player );
                 game.activePlayers().splice( x, 1 );
             }
