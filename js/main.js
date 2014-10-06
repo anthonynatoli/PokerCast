@@ -33,11 +33,12 @@ $(CastFramework).ready(function() {
         }
 		
 		if(push) {
-            if (game_started)
+            if (game_started){
                 game.inactivePlayers.push(new Player(clientId, content.name || null));
-            else
+            }
+            else{
                 game.activePlayers.push(new Player(clientId, content.name || null));
-
+            }
             // Sends them a message letting them know if they have
             // successfully joined and if they are the host
             var new_player = {
@@ -124,9 +125,10 @@ $(CastFramework).ready(function() {
         var previous_bet = bet;
 
         // Add the current bet to the current hand's pot
-        if (previous_bet != -1) 
+        if (previous_bet != -1) {
             game.hand().pot(game.hand().pot()+previous_bet);
-
+        }
+        
         var current_index = 0;
         for( var x = 0; x < game.activePlayers().length; x++ ){ // Get index of current player in array
             if( game.activePlayers()[x].id === id ){
@@ -138,8 +140,9 @@ $(CastFramework).ready(function() {
         var prev_player = game.activePlayers()[current_index];
 
         // Update the players total bet/chips amount
-        if (previous_bet == -1) 
+        if (previous_bet == -1){ 
             prev_player.bet(-1); // Player folded
+        }
         else {
             prev_player.bet(prev_player.bet()+previous_bet);
             prev_player.chips(prev_player.chips()-previous_bet);
@@ -175,8 +178,9 @@ $(CastFramework).ready(function() {
         for (var x = 1; x < num_players; x++) {
             next_player = game.activePlayers()[ (current_index + x) % num_players ];
 
-            if (next_player.bet() != -1)
+            if (next_player.bet() != -1){
                 break;
+            }
         }
 
         /* This shouldn't happen
@@ -198,15 +202,19 @@ $(CastFramework).ready(function() {
         for(var i = 0; i < game.activePlayers().length; i++) {
             var player = game.activePlayers()[i];
             // Checks if a player has bet yet
-            if (!player.hadTurn)
+            if (!player.hadTurn){
                 return false;
+            }
             
             // Checks if a player has folded/has equal bets
-            if (player.bet() == -1);
-            else if (betToCompare == -1)
+            if (player.bet() == -1){
+            }
+            else if (betToCompare == -1){
                 betToCompare = player.bet();
-            else if (betToCompare != player.bet())
+            }
+            else if (betToCompare != player.bet()){
                 return false;
+            }
         }
 
         return true;
