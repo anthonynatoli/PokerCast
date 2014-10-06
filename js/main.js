@@ -3,8 +3,6 @@ $(CastFramework).ready(function() {
     $(document.body).css("background-color", "#1693A5");
     $('#status').text("it's working! yay!");
 
-	var totalBetForRound;
-
     $(CastFramework).on("join", function(event, clientId, content) {
     	content = content || {};
 
@@ -91,6 +89,7 @@ $(CastFramework).ready(function() {
         if(!received) {
             received = true;
             var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
+	    totalBetForRound = 0;
             newTurn(firstPlayer, 0);
         }
     });
@@ -124,6 +123,10 @@ $(CastFramework).ready(function() {
 
     function handleBet(id, bet) {
         var previous_bet = bet;
+
+	if (previous_bet > totalBetForRound){
+		totalBetForRound = previous_bet;
+	}
 
         // Add the current bet to the current hand's pot
         if (previous_bet != -1) 
@@ -160,6 +163,7 @@ $(CastFramework).ready(function() {
 
         // Checks to see if the round is over
         if(checkRoundOver()) {
+	    totalBetForRound = 0;
             game.hand().round(game.hand().round()+1);
             if (game.hand().round() >= 4) { // Hand is over
                 endHand();
@@ -188,7 +192,7 @@ $(CastFramework).ready(function() {
             return;
         }
         
-        newTurn(next_player, previous_bet);
+        newTurn(next_player, totalBetForRound - next_player.bet());
     }
 
     /* Checks to see if the round is over by comparing
