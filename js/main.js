@@ -163,7 +163,6 @@ $(CastFramework).ready(function() {
 
         // Checks to see if the round is over
         if(checkRoundOver()) {
-	    totalBetForRound = 0;
             game.hand().round(game.hand().round()+1);
             if (game.hand().round() >= 4) { // Hand is over
                 endHand();
@@ -219,6 +218,7 @@ $(CastFramework).ready(function() {
     }
 
     function endRound() {
+	totalBetForRound = 0;
         game.activePlayers().forEach(function(player) {
             if(player.bet() != -1) {
                 player.hadTurn = false;
