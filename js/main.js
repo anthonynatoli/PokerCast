@@ -230,7 +230,6 @@ $(CastFramework).ready(function() {
      /* Check who won the hand
        and if the game is over */
     function endHand() {
-        // TODO: IMPLEMENT ME
         var winner = determineWinner();
         var pot_value = emptyPot();
 
@@ -240,19 +239,16 @@ $(CastFramework).ready(function() {
             'pot_value': pot_value
         };
 
+        // TODO: Implement check for if the game is over
+
         CastFramework.broadcastMessage( 'end_hand', winnings );
+
     }
 
     function emptyPot() {
         var val = game.hand().pot();
         game.hand().pot(0);
         return val;
-    }
-
-    function determineWinner() {
-        var winner = game.activePlayers()[0];
-
-        return winner;
     }
 
 });
