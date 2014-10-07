@@ -87,7 +87,7 @@ body {
 	}
 
 	#score .bet {
-		background-color:#0099cc;
+		background-color:#9933cc;
 	}
 
 	#score .raise {
@@ -95,6 +95,10 @@ body {
 	}
 
 	#score .call {
+		background-color:#0099cc;
+	}
+
+	#score .check {
 		background-color:#0099cc;
 	}
 

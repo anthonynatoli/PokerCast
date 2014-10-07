@@ -123,12 +123,7 @@ $(CastFramework).ready(function() {
 
     var firstPlayer = true;
     function handleBet(id, bet) {
-        firstPlayer = false;
         var previous_bet = bet;
-
-	if (previous_bet > totalBetForRound){
-		totalBetForRound = previous_bet;
-	}
 
         // Add the current bet to the current hand's pot
         if (previous_bet != -1) 
@@ -149,17 +144,28 @@ $(CastFramework).ready(function() {
             prev_player.bet(-1); // Player folded
             prev_player.action("Folded");
         } else {
-            if(firstPlayer) {
-                prev_player.action("Bet " + previous_bet);
-            } else if(previous_bet > game.hand().currentBet) {
-                prev_player.action("Raised " + (previous_bet - game.hand().currentBet));
+            prev_player.betRound(prev_player.betRound()+previous_bet);
+            if(prev_player.betRound() > totalBetForRound) {
+                if(firstPlayer) {
+                    prev_player.action("Bet " + prev_player.betRound());
+                } else {
+                    prev_player.action("Raised " + prev_player.betRound());
+                }
             } else {
-                prev_player.action("Called " + previous_bet);
+                if(firstPlayer) {
+                    prev_player.action("Checked");
+                } else {
+                    prev_player.action("Called " + prev_player.betRound());
+                }
             }
+            firstPlayer = false;
             prev_player.bet(prev_player.bet()+previous_bet);
             game.hand().currentBet = prev_player.bet();
-	        prev_player.betRound(prev_player.betRound()+previous_bet);
             prev_player.chips(prev_player.chips()-previous_bet);
+
+            if (previous_bet > totalBetForRound){
+                totalBetForRound = previous_bet;
+            }
 
             // TODO: Implement All-In functionality
             if (prev_player.chips() == 0) {
@@ -230,11 +236,13 @@ $(CastFramework).ready(function() {
     }
 
     function endRound() {
-	totalBetForRound = 0;
+	   totalBetForRound = 0;
         game.activePlayers().forEach(function(player) {
-	    player.betRound(0);
+	       player.betRound(0);
             if(player.bet() != -1) {
+                player.action("Waiting");
                 player.hadTurn = false;
+                firstPlayer = true;
             }
         });
 
