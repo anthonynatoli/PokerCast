@@ -80,11 +80,11 @@ $(CastFramework).ready(function() {
                 });
             }
 	    else {
-		    /*var AIplayerCards = player.cards.sort(function (card1, card2) {
+		    var AIplayerCards = player.cards.sort(function (card1, card2) {
 			return card2.value - card1.value;
-		    });*/
+		    });
 		    var score = determineHand(player.cards)
-		    player.handEval(score);
+		    player.handEval = score;
 	    }
         });
         console.dir(game.activePlayers());
