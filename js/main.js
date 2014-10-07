@@ -80,7 +80,9 @@ $(CastFramework).ready(function() {
                 });
             }
 	    else {
-		    var AIplayerCards = sortCards(player.cards, null);
+		    var AIplayerCards = player.cards.sort(function (card1, card2) {
+			return card2.value - card1.value;
+		    });
 		    player.handEval(determineHand(AIplayerCards));
 	    }
         });
