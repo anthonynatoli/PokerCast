@@ -281,7 +281,7 @@ $(CastFramework).ready(function() {
         var chipsPerPlayer = game.hand().chipsPerPlayer;
 
         //remove ineligible players from activePlayer list
-        for( x = 0; x < game.activePlayers().length; x++ ){
+        for( x = game.activePlayers().length - 1; x >= 0; x-- ){
             temp_player = game.activePlayers()[x];
           
             if( temp_player.chips() <= 0 ){
@@ -291,7 +291,7 @@ $(CastFramework).ready(function() {
         }
         
         //add queued players to active player list
-        for( x = 0; x < game.inactivePlayers().length; x++ ){
+        for( x = game.inactivePlayers().length - 1; x >= 0; x-- ){
             temp_player = game.inactivePlayers()[x];
             temp_player.chips( chipsPerPlayer );
 
