@@ -84,7 +84,7 @@ $(CastFramework).ready(function() {
 			return card2.value - card1.value;
 		    });
 		    var score = determineHand(player.cards)
-		    player.handEval = score;
+		    player.handEval = score[0];
 	    }
         });
         console.dir(game.activePlayers());
