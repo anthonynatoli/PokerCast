@@ -79,6 +79,10 @@ $(CastFramework).ready(function() {
                     chips: player.chips()
                 });
             }
+	    else {
+		    var AIplayerCards = sortCards(player.cards, null);
+		    player.handEval(determineHand(AIplayerCards));
+	    }
         });
         console.dir(game.activePlayers());
     });
