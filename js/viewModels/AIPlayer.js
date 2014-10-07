@@ -2,10 +2,11 @@ function AIPlayer(id, chips) {
 	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length),1)[0]])
 	var self = this;
 	var savedChips = chips;
-	var handEval = ko.observable(0);
+	var handEval = ko.observable(-1);
 	var raised = false;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet) {
+		console.log(handEval);
 		if ( bet == 0 && handEval() < 6 ){
 			return 0;
 		}
