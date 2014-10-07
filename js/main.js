@@ -147,6 +147,7 @@ $(CastFramework).ready(function() {
             prev_player.bet(-1); // Player folded
         else {
             prev_player.bet(prev_player.bet()+previous_bet);
+	    prev_player.betRound(prev_player.betRound()+previous_bet);
             prev_player.chips(prev_player.chips()-previous_bet);
 
             // TODO: Implement All-In functionality
@@ -191,7 +192,7 @@ $(CastFramework).ready(function() {
             return;
         }
         
-        newTurn(next_player, totalBetForRound - next_player.bet());
+        newTurn(next_player, totalBetForRound - next_player.betRound());
     }
 
     /* Checks to see if the round is over by comparing
@@ -220,6 +221,7 @@ $(CastFramework).ready(function() {
     function endRound() {
 	totalBetForRound = 0;
         game.activePlayers().forEach(function(player) {
+	    player.betRound(0);
             if(player.bet() != -1) {
                 player.hadTurn = false;
             }
@@ -233,6 +235,7 @@ $(CastFramework).ready(function() {
         // always put one card out
         game.hand().cardsOnTable.push(game.hand().deck().getCard());
     }
+
      /* Check who won the hand
        and if the game is over */
     function endHand() {
