@@ -83,7 +83,8 @@ $(CastFramework).ready(function() {
 		    /*var AIplayerCards = player.cards.sort(function (card1, card2) {
 			return card2.value - card1.value;
 		    });*/
-		    player.handEval(determineHand(player.cards));
+		    var score = determineHand(player.cards())
+		    player.handEval(score);
 	    }
         });
         console.dir(game.activePlayers());
