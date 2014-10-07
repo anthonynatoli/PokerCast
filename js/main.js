@@ -120,7 +120,9 @@ $(CastFramework).ready(function() {
         }
     }
 
+    var firstPlayer = true;
     function handleBet(id, bet) {
+        firstPlayer = false;
         var previous_bet = bet;
 
         // Add the current bet to the current hand's pot
@@ -138,10 +140,19 @@ $(CastFramework).ready(function() {
         var prev_player = game.activePlayers()[current_index];
 
         // Update the players total bet/chips amount
-        if (previous_bet == -1) 
+        if (previous_bet == -1) {
             prev_player.bet(-1); // Player folded
-        else {
+            prev_player.action("Folded");
+        } else {
+            if(firstPlayer) {
+                prev_player.action("Bet " + previous_bet);
+            } else if(previous_bet > game.hand().currentBet) {
+                prev_player.action("Raised " + (previous_bet - game.hand().currentBet));
+            } else {
+                prev_player.action("Called " + previous_bet);
+            }
             prev_player.bet(prev_player.bet()+previous_bet);
+            game.hand().currentBet = prev_player.bet();
             prev_player.chips(prev_player.chips()-previous_bet);
 
             // TODO: Implement All-In functionality
@@ -233,6 +244,7 @@ $(CastFramework).ready(function() {
         // TODO: IMPLEMENT ME
         var winner = determineWinner();
         var pot_value = emptyPot();
+        firstPlayer = true;
 
         var winnings = {
             'winner_id': winner.id,

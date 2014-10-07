@@ -43,7 +43,7 @@
         </div>
         <div id="score" data-bind="visible: game.activePlayers().length > 0">
             <!-- ko foreach: game.activePlayers -->
-            <div class="floatingDialog" data-bind="
+            <div class="player floatingDialog" data-bind="
                 css: {
                     turn: isTurn
                 }
@@ -52,7 +52,17 @@
                     text: name || 'Player ' + ($index()+1)
                 ">
                 </div>
-                <div class="player-chips" data-bind="text: bet"></div>
+                <div class="player-action" data-bind="
+                    text: action,
+                    css: {
+                        fold: action().indexOf('Fold') != -1,
+                        bet: action().indexOf('Bet') != -1,
+                        raise: action().indexOf('Raise') != -1,
+                        call: action().indexOf('Call') != -1
+                    }"></div>
+                <div class="player-chips">
+                    <span data-bind="text: chips"></span> chips
+                </div>
             </div>
             <!-- /ko -->
         </div>

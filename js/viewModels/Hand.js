@@ -6,4 +6,5 @@ function Hand(deck, chipsPerPlayer, pot) {
 	self.round = ko.observable(0);
 	self.cardsOnTable = ko.observableArray([]);
 	self.currentPlayer = ko.observable();
+	self.currentBet = 0;
 }

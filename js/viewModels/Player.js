@@ -7,6 +7,7 @@ function Player(id, name) {
 	self.chips = ko.observable(0);
 	self.hadTurn = false;
 	self.cards = [];
+	self.action = ko.observable("Waiting");
 	self.isTurn = ko.computed(function() {
 		return game.hand() && game.hand().currentPlayer() && game.hand().currentPlayer().id === self.id;
 	});
