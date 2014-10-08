@@ -8,7 +8,7 @@ function AIPlayer(id, chips) {
 	self.makeBet = function(bet) {
 		if (raised == false){
 			raised = true;
-			return handEval;
+			return self.handEval;
 		}
 		else {
 			raised = false;
