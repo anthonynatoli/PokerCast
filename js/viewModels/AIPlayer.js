@@ -6,14 +6,14 @@ function AIPlayer(id, chips) {
 	var raised = false;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet) {
-		if (raised == false){
+		/*if (raised == false){
 			raised = true;
 			return handEval;
 		}
 		else {
 			raised = false;
 			return bet;
-		}
+		}*/
 		console.log(self.handEval);
 		if ( bet == 0 && self.handEval < 6 ){
 			return 0;
