@@ -246,6 +246,7 @@ $(CastFramework).ready(function() {
 		if (player.type == 'AIPlayer'){
 			var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable());
 			var score = determineHand(AIplayerCards);
+			log.console(score);
 			player.handEval = score[0];
 		}
 	});

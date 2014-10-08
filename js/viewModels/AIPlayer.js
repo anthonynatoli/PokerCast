@@ -6,6 +6,7 @@ function AIPlayer(id, chips) {
 	var raised = false;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet) {
+		console.log(self.handEval);
 		if (raised == false){
 			raised = true;
 			return self.handEval;
@@ -14,7 +15,6 @@ function AIPlayer(id, chips) {
 			raised = false;
 			return bet;
 		}
-		console.log(self.handEval);
 		if ( bet == 0 && self.handEval < 6 ){
 			return 0;
 		}
