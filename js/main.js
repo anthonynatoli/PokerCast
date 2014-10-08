@@ -244,7 +244,7 @@ $(CastFramework).ready(function() {
         game.hand().cardsOnTable.push(game.hand().deck().getCard());
 	game.activePlayers().forEach(function(player) {
 		if (player.type == 'AIPlayer'){
-			var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable);
+			var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable());
 			var score = determineHand(AIplayerCards);
 			player.handEval = score[0];
 		}
