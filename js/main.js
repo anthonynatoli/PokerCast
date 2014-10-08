@@ -221,19 +221,28 @@ $(CastFramework).ready(function() {
     }
 
     function endRound() {
+        var num_folds = 0;
         game.activePlayers().forEach(function(player) {
             if(player.bet() != -1) {
                 player.hadTurn = false;
+                num_folds++;
             }
         });
 
-        if(game.hand().cardsOnTable().length == 0) {
+        //if all but one player has folded, hand ends
+        if( num_folds === game.activePlayers().length-1 ){
+            endHand();
+        }
+        else{
+            if(game.hand().cardsOnTable().length == 0) {
             // first time, put 3 cards out
-            game.hand().cardsOnTable.push(game.hand().deck().getCard());
+                game.hand().cardsOnTable.push(game.hand().deck().getCard());
+                game.hand().cardsOnTable.push(game.hand().deck().getCard());
+            }
+            // always put one card out
             game.hand().cardsOnTable.push(game.hand().deck().getCard());
         }
-        // always put one card out
-        game.hand().cardsOnTable.push(game.hand().deck().getCard());
+        
     }
      /* Check who won the hand
        and if the game is over */
