@@ -242,13 +242,13 @@ $(CastFramework).ready(function() {
         }
         // always put one card out
         game.hand().cardsOnTable.push(game.hand().deck().getCard());
-	/*game.activePlayers().forEach(fuction(player) {
+	game.activePlayers().forEach(function(player) {
 		if (player.type == 'AIPlayer'){
 			var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable);
 			var score = determineHand(AIplayerCards);
 			player.handEval = score[0];
 		}
-	});*/
+	});
     }
 
      /* Check who won the hand
