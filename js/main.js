@@ -233,6 +233,7 @@ $(CastFramework).ready(function() {
         if( num_folds === game.activePlayers().length-1 ){
             endHand();
         }
+        //otherwise hand continues
         else{
             if(game.hand().cardsOnTable().length == 0) {
             // first time, put 3 cards out
