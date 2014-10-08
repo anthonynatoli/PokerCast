@@ -60,7 +60,7 @@ $(CastFramework).ready(function() {
         // create AIPlayers
     	if(content.aiPlayers) {
     		for(var i = 0; i < content.aiPlayers; i++) {
-    			game.activePlayers.push(new AIPlayer(i));
+    			game.activePlayers.push(new AIPlayer(i, content.chipsPerPlayer));
     		}
     	}
 
@@ -90,6 +90,7 @@ $(CastFramework).ready(function() {
         if(!received) {
             received = true;
             var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
+	    totalBetForRound = 0;
             newTurn(firstPlayer, 0);
         }
     });
@@ -116,13 +117,17 @@ $(CastFramework).ready(function() {
         // if the player is an AI player, then make them bet
         if(player.type == 'AIPlayer') {
             window.setTimeout(function() {
-                handleBet(player.id, player.makeBet());
+                handleBet(player.id, player.makeBet(bet));
             }, 2000);
         }
     }
 
     function handleBet(id, bet) {
         var previous_bet = bet;
+
+	if (previous_bet > totalBetForRound){
+		totalBetForRound = previous_bet;
+	}
 
         // Add the current bet to the current hand's pot
         if (previous_bet != -1) {
@@ -145,6 +150,7 @@ $(CastFramework).ready(function() {
         }
         else {
             prev_player.bet(prev_player.bet()+previous_bet);
+	    prev_player.betRound(prev_player.betRound()+previous_bet);
             prev_player.chips(prev_player.chips()-previous_bet);
 
             // TODO: Implement All-In functionality
@@ -190,7 +196,7 @@ $(CastFramework).ready(function() {
             return;
         }
         
-        newTurn(next_player, previous_bet);
+        newTurn(next_player, totalBetForRound - next_player.betRound());
     }
 
     /* Checks to see if the round is over by comparing
@@ -222,7 +228,9 @@ $(CastFramework).ready(function() {
 
     function endRound() {
         var num_folds = 0;
+	    totalBetForRound = 0;
         game.activePlayers().forEach(function(player) {
+	    player.betRound(0);
             if(player.bet() != -1) {
                 player.hadTurn = false;
                 num_folds++;
@@ -245,6 +253,7 @@ $(CastFramework).ready(function() {
         }
         
     }
+
      /* Check who won the hand
        and if the game is over */
     function endHand() {
