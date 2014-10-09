@@ -122,6 +122,19 @@ $(CastFramework).ready(function() {
     	handleBet(clientId, content.bet);
     });
 
+    $(CastFramework).on("disconnect", function(event, clientId) {
+        game.activePlayers().forEach(function(player) {
+            if (player.id == clientId) {
+                player.bet(-1);
+                return false;
+            }
+        });
+
+        if (game.hand().currentPlayer().id == clientId) {
+            handleBet(clientId, -1);
+        }
+    });
+
     function newTurn(player, bet) {
         // update whose turn it is
         game.hand().currentPlayer(player);
