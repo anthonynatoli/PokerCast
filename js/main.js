@@ -351,11 +351,11 @@ $(CastFramework).ready(function() {
         CastFramework.broadcastMessage( 'end_hand', winnings );
 
         setTimeout(function() {
-            nextHand(winner)
+            nextHand(winner, pot_value)
         }, 30000);
     }
 
-    function nextHand(winner) {
+    function nextHand(winner, pot_value) {
         //add pot to chip count of hand winner
         var winner_chips = winner.chips() + pot_value;
         winner.chips( winner_chips );
