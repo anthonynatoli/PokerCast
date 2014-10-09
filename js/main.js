@@ -292,9 +292,6 @@ $(CastFramework).ready(function() {
             else{
                 num_folds++;
             }
-            else{
-                num_folds++;
-            }
         });
 
         //if all but one player has folded, hand ends
