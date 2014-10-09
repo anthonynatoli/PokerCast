@@ -315,8 +315,13 @@ $(CastFramework).ready(function() {
         //check if game ends
         var num_eligible_players = 0;
         var startNewHand = false;
+
+        if( game.inactivePlayers().length > 0 ){
+            startNewHand = true;
+        }
+
         game.activePlayers().forEach( function( player ){
-            if( player.chips() > 0){ //if a player has chips, they are eligible for next hand
+            if( player.chips() > 0 ){ //if a player has chips, they are eligible for next hand
                 num_eligible_players++;
                 if( num_eligible_players > 1 ){ 
                     //if more than one player is eligible, start a new hand
