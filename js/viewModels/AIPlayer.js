@@ -12,7 +12,6 @@ function AIPlayer(id, chips) {
 		console.log("HandEval: " + self.handEval);
 		console.log("Confidence: " + confidence);
 		console.log("Bet: " + bet);
-		console.log("RaiseAmount: " + raiseAmount);
 		console.log("Frugality: " + frugality);
 		var finalEval = self.handEval + confidence;
 		if ( bet == 0 && finalEval < 1 ){
