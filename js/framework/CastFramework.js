@@ -51,6 +51,7 @@
         };
         castReceiverManager.onSenderDisconnected = function(event) {
             log('Received Sender Disconnected event: ' + event.data);
+            $(CastFramework).trigger('disconnect', event.senderId);
             if(castReceiverManager.getSenders().length == 0) {
                 stop();
             }
