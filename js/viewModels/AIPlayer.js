@@ -15,18 +15,18 @@ function AIPlayer(id, chips) {
 		console.log("Frugality: " + frugality);
 		var finalEval = self.handEval + confidence;
 		if ( bet == 0 && finalEval < 1 ){
-			return bet;
+			return safeBet(bet);
 		}
 		if ( finalEval < 1 ){
 			if ( round == 0 && bet < savedChips/(frugality + 2) ){
-				return bet;
+				return safeBet(bet);
 			}
 			else {
 				return -1;
 			}
 		}
 		if ( finalEval < 3 && bet < savedChips/frugality ){
-			return bet;
+			return safeBet(bet);
 		}
 		if ( finalEval < 3 && bet > savedChips/frugality ){
 			return -1;
@@ -35,11 +35,11 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return bet + 1;
+				return safeBet(bet + 1);
 			}
 			else {
 				console.log("Not Raised: " + bet);
-				return bet;
+				return safeBet(bet);
 			}
 		}
 		if ( finalEval < 5 && bet > savedChips/(frugality/2) ){
@@ -49,15 +49,23 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return bet + 1;
+				return safeBet(bet + 1);
 			}
 			else {
 				console.log("Not Raised: " + bet);
-				return bet;
+				return safeBet(bet);
 			}
 		}
 		//return bet;
 		//return (savedChips/4);
+	}
+	var safeBet = function(desiredBet){
+		if ( self.chips > desiredBet ){
+			return desiredBet;
+		}
+		else {
+			return self.chips;
+		}
 	}
 }
 
