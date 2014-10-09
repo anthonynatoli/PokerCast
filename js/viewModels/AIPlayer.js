@@ -7,11 +7,13 @@ function AIPlayer(id, chips) {
 	var raised = 0;
 	var frugality = Math.random()*4 + 0.5;	//how much they're willing to bet, lower = more
 	var confidence = Math.random()*3;	//boosts handEvaluation
+	var raiseAmount = Math.Floor(Math.random()*savedChips/10);
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
 		console.log("HandEval: " + self.handEval);
 		console.log("Confidence: " + confidence);
 		console.log("Bet: " + bet);
+		console.log("RaiseAmount: " + raiseAmount);
 		console.log("Frugality: " + frugality);
 		var finalEval = self.handEval + confidence;
 		if ( bet == 0 && finalEval < 1 ){
