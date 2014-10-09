@@ -340,10 +340,12 @@ $(CastFramework).ready(function() {
 
         CastFramework.broadcastMessage( 'end_hand', winnings );
 
-        setTimeout(nextHand, 60000);
+        setTimeout(function() {
+            nextHand(winner)
+        }, 30000);
     }
 
-    function nextHand() {
+    function nextHand(winner) {
         //add pot to chip count of hand winner
         var winner_chips = winner.chips() + pot_value;
         winner.chips( winner_chips );
