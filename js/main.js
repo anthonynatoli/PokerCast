@@ -273,19 +273,16 @@ $(CastFramework).ready(function() {
             }
             // always put one card out
             game.hand().cardsOnTable.push(game.hand().deck().getCard());
-        }
-
-        // always put one card out
-        game.hand().cardsOnTable.push(game.hand().deck().getCard());
-	game.activePlayers().forEach(function(player) {
-		if (player.type == 'AIPlayer'){
-			var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable());
-			var score = determineHand(AIplayerCards);
-			console.log(score);
-			player.handEval = score[0];
-			player.newRound = true;
-		}
+	    game.activePlayers().forEach(function(player) {
+	    if (player.type == 'AIPlayer'){
+		var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable());
+		var score = determineHand(AIplayerCards);
+		console.log(score);
+		player.handEval = score[0];
+		player.newRound = true;
+	    }
 	});
+        }
 
     }
 
