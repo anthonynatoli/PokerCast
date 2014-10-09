@@ -3,16 +3,16 @@ function AIPlayer(id, chips) {
 	var self = this;
 	var savedChips = chips;
 	self.handEval = -1;
+	self.newRound = true;
 	var raised = false;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet) {
 		console.log(self.handEval);
-		if (raised == false){
-			raised = true;
+		if (self.newRound){
+			self.newRound = false;
 			return self.handEval;
 		}
 		else {
-			raised = false;
 			return bet;
 		}
 		if ( bet == 0 && self.handEval < 6 ){

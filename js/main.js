@@ -248,6 +248,7 @@ $(CastFramework).ready(function() {
 			var score = determineHand(AIplayerCards);
 			console.log(score);
 			player.handEval = score[0];
+			player.newRound = true;
 		}
 	});
     }
