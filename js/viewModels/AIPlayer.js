@@ -7,8 +7,10 @@ function AIPlayer(id, chips) {
 	var raised = 0;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
+		console.log("HandEval: " + self.handEval);
+		console.log("Bet: " + bet);
 		if ( bet == 0 && self.handEval < 1 ){
-			return 0;
+			return bet;
 		}
 		if ( self.handEval < 1 && round != 0){
 			return -1;
