@@ -60,11 +60,11 @@ function AIPlayer(id, chips) {
 		//return (savedChips/4);
 	}
 	var safeBet = function(desiredBet){
-		if ( self.chips > desiredBet ){
+		if ( self.chips() > desiredBet ){
 			return desiredBet;
 		}
 		else {
-			return self.chips;
+			return self.chips();
 		}
 	}
 }
