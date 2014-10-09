@@ -68,7 +68,7 @@ function AIPlayer(id, chips) {
 		}
 	}
 	var getRaiseAmount = function(){
-		var raise = Math.floor(Math.random()*savedChips/15);
+		var raise = Math.floor(Math.random()*savedChips/(15 + Math.ceil(frugality));
 		if (raise == 0){
 			return 1;
 		}
