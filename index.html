@@ -26,47 +26,63 @@
 </head>
 <body>
     <div id="table">
-        <div id="cards">
-            <!-- ko ifnot: game.hand() -->
-                <h1>Waiting for players...</h1>
-            <!-- /ko -->
-            <!-- ko if: game.hand() -->
+        <!-- ko ifnot: game.hand() -->
+            <div id="waiting">
+                <img id="logo" src="img/Logo_white.png">
+                <div class="info">
+                    <h1>Waiting for players...</h1>
+                </div>
+            </div>
+        <!-- /ko -->
+        <!-- ko if: game.hand() -->
+            <div id="cards">
                 <!-- ko foreach: game.hand().cardsOnTable -->
                     <img class="card" data-bind="
                         text: value,
                         attr: {
                             'src': 'img/cards/'+suit+value+'.png'
-                        }">
+                        }
+                    ">
                 <!-- /ko -->
                 <div id="pot">
                     <div class="floatingDialog" style="font-size:50px; font-weight:bold" data-bind="text: game.hand().pot"></div>
                 </div>
-            <!-- /ko -->
-        </div>
-        <div id="score" data-bind="visible: game.activePlayers().length > 0">
-            <!-- ko foreach: game.activePlayers -->
-            <div class="player floatingDialog" data-bind="
-                css: {
-                    turn: isTurn
-                }
-            ">
-                <div class="player-name" data-bind="
-                    text: name || 'Player ' + ($index()+1)
-                ">
-                </div>
-                <div class="player-action" data-bind="
-                    text: action,
-                    css: {
-                        fold: action().indexOf('Fold') != -1,
-                        bet: action().indexOf('Bet') != -1,
-                        raise: action().indexOf('Raise') != -1,
-                        call: action().indexOf('Call') != -1,
-                        check: action().indexOf('Check') != -1
-                    }"></div>
-                <div class="player-chips">
-                    <span data-bind="text: chips"></span> chips
-                </div>
             </div>
+        <!-- /ko -->
+        <div id="score" data-bind="visible: game.activePlayers().length > 0">
+            <!-- ko foreach: game.shownPlayers -->
+                <div>
+                    <div class="player floatingDialog" data-bind="
+                        css: {
+                            turn: isTurn
+                        }
+                    ">
+                        <div class="player-name" data-bind="
+                            text: name || 'Player ' + ($index()+1)
+                        ">
+                        </div>
+                        <div class="player-action" data-bind="
+                            text: action,
+                            css: {
+                                fold: action().indexOf('Fold') != -1,
+                                bet: action().indexOf('Bet') != -1,
+                                raise: action().indexOf('Raise') != -1,
+                                call: action().indexOf('Call') != -1,
+                                check: action().indexOf('Check') != -1
+                            }">
+                        </div>
+                        <div class="player-chips">
+                            <img src="img/chip.png" class="chips-img">
+                            <span data-bind="text: chips"></span>
+                        </div>
+                    </div>
+                    <div class="current-round-bet info" data-bind="visible: betRound() > 0">
+                        <div class="player-chips">
+                            <img src="img/chip.png" class="chips-img">
+                            <span data-bind="text: betRound"></span>
+                        </div>
+                    </div>
+                </div>
             <!-- /ko -->
         </div>
         <!-- ko if: game.hand() && game.hand().round() >= 4 -->

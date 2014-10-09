@@ -142,20 +142,20 @@ $(CastFramework).ready(function() {
         // Update the players total bet/chips amount
         if (previous_bet == -1) {
             prev_player.bet(-1); // Player folded
-            prev_player.action("Folded");
+            prev_player.action("Fold");
         } else {
             prev_player.betRound(prev_player.betRound()+previous_bet);
             if(prev_player.betRound() > totalBetForRound) {
                 if(firstPlayer) {
-                    prev_player.action("Bet " + prev_player.betRound());
+                    prev_player.action("Bet");
                 } else {
-                    prev_player.action("Raised " + prev_player.betRound());
+                    prev_player.action("Raise");
                 }
             } else {
                 if(firstPlayer) {
-                    prev_player.action("Checked");
+                    prev_player.action("Check");
                 } else {
-                    prev_player.action("Called " + prev_player.betRound());
+                    prev_player.action("Call");
                 }
             }
             firstPlayer = false;
