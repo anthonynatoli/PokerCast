@@ -246,6 +246,8 @@ $(CastFramework).ready(function() {
 	    player.betRound(0);
             if(player.bet() != -1) {
                 player.hadTurn = false;
+            }
+            else{
                 num_folds++;
             }
         });
