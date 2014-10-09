@@ -302,7 +302,6 @@ $(CastFramework).ready(function() {
             }
         });
         if( startNewHand ){
-            console.log("IT'S TIME FOR A NEW ROUND MOFO");
             newHand();
         }
     }
