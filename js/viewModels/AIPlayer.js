@@ -80,10 +80,10 @@ function AIPlayer(id, chips) {
 			return raise;
 		}
 	}
-	self.resetRandoms = function() {
+	/*self.resetRandoms = function() {
 		confidence = Math.random()*3;
 		bluffing = Math.random()*100;
-	}
+	}*/
 }
 
 var names = [
