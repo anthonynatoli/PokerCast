@@ -5,23 +5,26 @@ function AIPlayer(id, chips) {
 	self.handEval = -1;
 	self.newRound = true;
 	var raised = 0;
+	var confidence = Math.random()*4 + 0.1;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
 		console.log("HandEval: " + self.handEval);
 		console.log("Bet: " + bet);
+		console.log("Confidence: " + confidence);
+		//var finalEval = self.handEval + confidence;
 		if ( bet == 0 && self.handEval < 1 ){
 			return bet;
 		}
 		if ( self.handEval < 1 && round != 0){
 			return -1;
 		}
-		if ( self.handEval < 2 && bet < savedChips/4 ){
+		if ( self.handEval < 2 && bet < savedChips/confidence ){
 			return bet;
 		}
-		if ( self.handEval < 2 && bet > savedChips/4 ){
+		if ( self.handEval < 2 && bet > savedChips/confidence ){
 			return -1;
 		}
-		if ( self.handEval < 4 && bet < savedChips/2 ){
+		if ( self.handEval < 4 && bet < savedChips/(confidence/2) ){
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
@@ -32,7 +35,7 @@ function AIPlayer(id, chips) {
 				return bet;
 			}
 		}
-		if ( self.handEval < 4 && bet > savedChips/2 ){
+		if ( self.handEval < 4 && bet > savedChips/(confidence/2) ){
 			return -1;
 		}
 		else {
