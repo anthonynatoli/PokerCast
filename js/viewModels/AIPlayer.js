@@ -7,7 +7,6 @@ function AIPlayer(id, chips) {
 	var raised = 0;
 	var frugality = Math.random()*4 + 0.5;	//how much they're willing to bet, lower = more
 	var confidence = Math.random()*3;	//boosts handEvaluation
-	var raiseAmount = Math.floor(Math.random()*savedChips/15);
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
 		console.log("HandEval: " + self.handEval);
@@ -37,7 +36,7 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return safeBet(bet + 1);
+				return safeBet(bet + getRaiseAmount());
 			}
 			else {
 				console.log("Not Raised: " + bet);
@@ -51,7 +50,7 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return safeBet(bet + 1);
+				return safeBet(bet + getRaiseAmount());
 			}
 			else {
 				console.log("Not Raised: " + bet);
@@ -67,6 +66,15 @@ function AIPlayer(id, chips) {
 		}
 		else {
 			return self.chips();
+		}
+	}
+	var getRaiseAmount = function(){
+		var raise = Math.floor(Math.random()*savedChips/15);
+		if (raise == 0){
+			return 1;
+		}
+		else {
+			return raise;
 		}
 	}
 }
