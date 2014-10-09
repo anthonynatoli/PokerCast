@@ -14,6 +14,7 @@ function AIPlayer(id, chips) {
 		console.log("Confidence: " + confidence);
 		console.log("Bet: " + bet);
 		console.log("Frugality: " + frugality);
+		console.log("Bluffing: " + bluffing);
 		var finalEval = self.handEval + confidence;
 		if ( bluffing < 15 && round != 0){
 			finalEval = 10;
