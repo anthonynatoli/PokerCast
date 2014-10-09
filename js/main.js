@@ -107,6 +107,7 @@ $(CastFramework).ready(function() {
 
     var received = false;
     $(CastFramework).on("hand_received", function(event, clientId, content) {
+        console.log("HAND RECIEVED MOFO!!!!!!!!!!!!!!!!!!!!!!!!!!")
         // choose a player at random and start the betting loop
         if(!received) {
             received = true;
