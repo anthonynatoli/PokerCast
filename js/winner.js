@@ -11,6 +11,9 @@ function determineWinner(){
 
 	for (var i = 0; i < game.activePlayers().length; i++) {
 		var player = game.activePlayers()[i];
+		if( player.bet() === -1 ){
+			continue;
+		}
 		updateScore = false;
 
 		// Sort all cards in descending order

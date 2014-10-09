@@ -4,15 +4,15 @@ $(CastFramework).ready(function() {
     $('#status').text("it's working! yay!");
 
     $(CastFramework).on("join", function(event, clientId, content) {
-        content = content || {};
+    	content = content || {};
 
         // If the hand is not null, the game has started
         var game_started = game.hand() != null;
 
-        // add the player to the list of players (if they aren't already in it)
-        var push = true;
+		// add the player to the list of players (if they aren't already in it)
+		var push = true;
 
-        console.dir(game.activePlayers());
+		console.dir(game.activePlayers());
         console.dir(game.inactivePlayers());
 
         if (game_started) {
@@ -31,8 +31,8 @@ $(CastFramework).ready(function() {
                 }
             });
         }
-        
-        if(push) {
+		
+		if(push) {
             if (game_started){
                 game.inactivePlayers.push(new Player(clientId, content.name || null));
             }
@@ -53,16 +53,16 @@ $(CastFramework).ready(function() {
     });
 
     $(CastFramework).on("start_hand", function(event, clientId, content) {
-        content = content || {};
+    	content = content || {};
 
         var startingPot = 0;
 
         // create AIPlayers
-        if(content.aiPlayers) {
-            for(var i = 0; i < content.aiPlayers; i++) {
-                game.activePlayers.push(new AIPlayer(i, content.chipsPerPlayer));
-            }
-        }
+    	if(content.aiPlayers) {
+    		for(var i = 0; i < content.aiPlayers; i++) {
+    			game.activePlayers.push(new AIPlayer(i, content.chipsPerPlayer));
+    		}
+    	}
         
         // create a Deck and a Hand
         game.hand(new Hand(new Deck(), content.chipsPerPlayer, startingPot));
@@ -93,34 +93,46 @@ $(CastFramework).ready(function() {
                     chips: player.chips() - ante_amount
                 });
             }
-        else {
-            var AIplayerCards = player.cards.sort(function (card1, card2) {
-            return card2.value - card1.value;
-            });
-            var score = determineHand(player.cards);
-            console.log(score);
-            player.handEval = score[0];
-        }
+	    else {
+		    var AIplayerCards = player.cards.sort(function (card1, card2) {
+			return card2.value - card1.value;
+		    });
+		    var score = determineHand(player.cards);
+		    console.log(score);
+		    player.handEval = score[0];
+	    }
         });
         console.dir(game.activePlayers());
     });
 
     var received = false;
     $(CastFramework).on("hand_received", function(event, clientId, content) {
-        console.log("HAND RECIEVED MOFO!!!!!!!!!!!!!!!!!!!!!!!!!!")
         // choose a player at random and start the betting loop
         if(!received) {
             received = true;
             var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
-            totalBetForRound = 0;
+	        totalBetForRound = 0;
             newTurn(firstPlayer, 0);
         }
     });
 
     /*Signal from android that a turn is complete*/
     $( CastFramework ).on( 'my_turn', function( event, clientId, content ){
-        content = content || {};
-        handleBet(clientId, content.bet);
+    	content = content || {};
+    	handleBet(clientId, content.bet);
+    });
+
+    $(CastFramework).on("disconnect", function(event, clientId) {
+        game.activePlayers().forEach(function(player) {
+            if (player.id == clientId) {
+                player.bet(-1);
+                return false;
+            }
+        });
+
+        if (game.hand().currentPlayer().id == clientId) {
+            handleBet(clientId, -1);
+        }
     });
 
     function newTurn(player, bet) {
@@ -147,9 +159,9 @@ $(CastFramework).ready(function() {
     function handleBet(id, bet) {
         var previous_bet = bet;
 
-    if (previous_bet > totalBetForRound){
-        totalBetForRound = previous_bet;
-    }
+	if (previous_bet > totalBetForRound){
+		totalBetForRound = previous_bet;
+	}
 
         // Add the current bet to the current hand's pot
         if (previous_bet != -1) {
@@ -172,7 +184,7 @@ $(CastFramework).ready(function() {
         }
         else {
             prev_player.bet(prev_player.bet()+previous_bet);
-        prev_player.betRound(prev_player.betRound()+previous_bet);
+	    prev_player.betRound(prev_player.betRound()+previous_bet);
             prev_player.chips(prev_player.chips()-previous_bet);
 
             // TODO: Implement All-In functionality
@@ -250,9 +262,9 @@ $(CastFramework).ready(function() {
 
     function endRound() {
         var num_folds = 0;
-        totalBetForRound = 0;
+	    totalBetForRound = 0;
         game.activePlayers().forEach(function(player) {
-        player.betRound(0);
+	    player.betRound(0);
             if(player.bet() != -1) {
                 player.hadTurn = false;
             }
@@ -274,15 +286,15 @@ $(CastFramework).ready(function() {
             }
             // always put one card out
             game.hand().cardsOnTable.push(game.hand().deck().getCard());
-        game.activePlayers().forEach(function(player) {
-        if (player.type == 'AIPlayer'){
-        var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable());
-        var score = determineHand(AIplayerCards);
-        console.log(score);
-        player.handEval = score[0];
-        player.newRound = true;
-        }
-    });
+	    game.activePlayers().forEach(function(player) {
+	    if (player.type == 'AIPlayer'){
+		var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable());
+		var score = determineHand(AIplayerCards);
+		console.log(score);
+		player.handEval = score[0];
+		player.newRound = true;
+	    }
+	});
         }
 
     }
@@ -293,11 +305,11 @@ $(CastFramework).ready(function() {
         var winner = determineWinner();
         var pot_value = emptyPot();
 
-    game.activePlayers().forEach(function(player) {
-        if (player.type == 'AIPlayer'){
-            player.resetRandoms();
-        }
-    });
+	game.activePlayers().forEach(function(player) {
+		if (player.type == 'AIPlayer'){
+			player.resetRandoms();
+		}
+	});
 
         var winnings = {
             'winner_id': winner.id,
