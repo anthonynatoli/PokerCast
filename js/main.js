@@ -365,6 +365,7 @@ $(CastFramework).ready(function() {
 
         //distribute cards to players
         game.activePlayers().forEach( function( player ){
+            player.bet( 0 );
             player.cards.push(game.hand().deck().getCard());
             player.cards.push(game.hand().deck().getCard());
         
