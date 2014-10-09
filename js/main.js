@@ -128,7 +128,7 @@ $(CastFramework).ready(function() {
             }
         });
 
-        if (game.hand().currentPlayer() && (game.hand().currentPlayer().id == clientId)) {
+        if (game.hand() && game.hand().currentPlayer() && (game.hand().currentPlayer().id == clientId)) {
             handleBet(clientId, -1);
         }
     });
