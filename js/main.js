@@ -93,6 +93,14 @@ $(CastFramework).ready(function() {
                     chips: player.chips() - ante_amount
                 });
             }
+	    else {
+		    var AIplayerCards = player.cards.sort(function (card1, card2) {
+			return card2.value - card1.value;
+		    });
+		    var score = determineHand(player.cards);
+		    console.log(score);
+		    player.handEval = score[0];
+	    }
         });
         console.dir(game.activePlayers());
     });
@@ -130,7 +138,7 @@ $(CastFramework).ready(function() {
         // if the player is an AI player, then make them bet
         if(player.type == 'AIPlayer') {
             window.setTimeout(function() {
-                handleBet(player.id, player.makeBet(bet));
+                handleBet(player.id, player.makeBet(bet, game.hand().round()));
             }, 2000);
         }
     }
@@ -265,8 +273,17 @@ $(CastFramework).ready(function() {
             }
             // always put one card out
             game.hand().cardsOnTable.push(game.hand().deck().getCard());
+	    game.activePlayers().forEach(function(player) {
+	    if (player.type == 'AIPlayer'){
+		var AIplayerCards = sortCards(player.cards, game.hand().cardsOnTable());
+		var score = determineHand(AIplayerCards);
+		console.log(score);
+		player.handEval = score[0];
+		player.newRound = true;
+	    }
+	});
         }
-        
+
     }
 
      /* Check who won the hand
@@ -274,6 +291,12 @@ $(CastFramework).ready(function() {
     function endHand() {
         var winner = determineWinner();
         var pot_value = emptyPot();
+
+	game.activePlayers().forEach(function(player) {
+		if (player.type == 'AIPlayer'){
+			player.resetRandoms();
+		}
+	});
 
         var winnings = {
             'winner_id': winner.id,
@@ -313,6 +336,7 @@ $(CastFramework).ready(function() {
         var x = 0;
         var temp_player = null;
         var chipsPerPlayer = game.hand().chipsPerPlayer;
+        var startingPot = 0;
 
         //remove ineligible players from activePlayer list
         for( x = game.activePlayers().length - 1; x >= 0; x-- ){
@@ -336,8 +360,12 @@ $(CastFramework).ready(function() {
         received = false; //set global variable to false
         //I don't see why the received variable is necessary
 
+        // create a Deck and a Hand
+        game.hand(new Hand(new Deck(), chipsPerPlayer, startingPot));
+
         //distribute cards to players
         game.activePlayers().forEach( function( player ){
+            player.bet( 0 );
             player.cards.push(game.hand().deck().getCard());
             player.cards.push(game.hand().deck().getCard());
         
