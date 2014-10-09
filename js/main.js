@@ -64,6 +64,20 @@ $(CastFramework).ready(function() {
     		}
     	}
 
+        //send out ante amount and subtract amount from chip count
+        game.hand().ante( 1 ); //set ante at 1 for now, can enable host to set ante if we want
+        var ante_amount = game.hand().ante();
+        var ante = { 
+            'ante_amount' : ante_amount
+        };
+        //inform clients of ante
+        CastFramework.broadcastMessage( 'ante', ante );
+        //take ante from each player and put it in the pot
+        game.activePlayers().forEach( function( player ){
+            player.chips( player.chips() - ante_amount );
+            game.hand().pot( game.hand.pot() + ante_amount );
+        });
+
         // create a Deck, a Hand, and give each player cards and chips
         game.hand(new Hand(new Deck(), content.chipsPerPlayer, startingPot));
         game.activePlayers().forEach(function(player) {
@@ -90,7 +104,7 @@ $(CastFramework).ready(function() {
         if(!received) {
             received = true;
             var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
-	    totalBetForRound = 0;
+	        totalBetForRound = 0;
             newTurn(firstPlayer, 0);
         }
     });
