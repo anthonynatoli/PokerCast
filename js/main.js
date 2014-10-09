@@ -63,9 +63,22 @@ $(CastFramework).ready(function() {
     			game.activePlayers.push(new AIPlayer(i, content.chipsPerPlayer));
     		}
     	}
-
-        // create a Deck, a Hand, and give each player cards and chips
+        
+        // create a Deck and a Hand
         game.hand(new Hand(new Deck(), content.chipsPerPlayer, startingPot));
+        
+        //send out ante amount and subtract amount from chip count
+        game.hand().ante( 1 ); //set ante at 1 for now, can enable host to set ante if we want
+        var ante_amount = game.hand().ante();
+
+        //take ante from each player and put it in the pot
+        game.activePlayers().forEach( function( player ){
+            player.chips( player.chips() - ante_amount );
+            game.hand().pot( game.hand().pot() + ante_amount );
+        });
+
+        
+        //give each player cards and chips
         game.activePlayers().forEach(function(player) {
             // give each player two cards
             player.cards.push(game.hand().deck().getCard());
@@ -77,7 +90,7 @@ $(CastFramework).ready(function() {
                 CastFramework.sendMessage( player.id, 'hand', {
                     card1: ""+player.cards[0].suit+player.cards[0].value,
                     card2: ""+player.cards[1].suit+player.cards[1].value,
-                    chips: player.chips()
+                    chips: player.chips() - ante_amount
                 });
             }
         });
@@ -90,7 +103,7 @@ $(CastFramework).ready(function() {
         if(!received) {
             received = true;
             var firstPlayer = game.activePlayers()[Math.floor(Math.random()*game.activePlayers().length)];
-	    totalBetForRound = 0;
+	        totalBetForRound = 0;
             newTurn(firstPlayer, 0);
         }
     });
@@ -227,21 +240,31 @@ $(CastFramework).ready(function() {
     }
 
     function endRound() {
-	totalBetForRound = 0;
+        var num_folds = 0;
+	    totalBetForRound = 0;
         game.activePlayers().forEach(function(player) {
 	    player.betRound(0);
             if(player.bet() != -1) {
                 player.hadTurn = false;
+                num_folds++;
             }
         });
 
-        if(game.hand().cardsOnTable().length == 0) {
+        //if all but one player has folded, hand ends
+        if( num_folds === game.activePlayers().length-1 ){
+            endHand();
+        }
+        //otherwise hand continues
+        else{
+            if(game.hand().cardsOnTable().length == 0) {
             // first time, put 3 cards out
-            game.hand().cardsOnTable.push(game.hand().deck().getCard());
+                game.hand().cardsOnTable.push(game.hand().deck().getCard());
+                game.hand().cardsOnTable.push(game.hand().deck().getCard());
+            }
+            // always put one card out
             game.hand().cardsOnTable.push(game.hand().deck().getCard());
         }
-        // always put one card out
-        game.hand().cardsOnTable.push(game.hand().deck().getCard());
+        
     }
 
      /* Check who won the hand
