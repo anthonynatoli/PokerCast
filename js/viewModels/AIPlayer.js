@@ -4,52 +4,42 @@ function AIPlayer(id, chips) {
 	var savedChips = chips;
 	self.handEval = -1;
 	self.newRound = true;
-	var raised = false;
+	var raised = 0;
 	self.type = "AIPlayer";
-	self.makeBet = function(bet) {
-		console.log(self.handEval);
-		if (self.newRound){
-			self.newRound = false;
-			return self.handEval;
-		}
-		else {
-			return bet;
-		}
-		if ( bet == 0 && self.handEval < 6 ){
+	self.makeBet = function(bet, round) {
+		if ( bet == 0 && self.handEval < 1 ){
 			return 0;
 		}
-		if ( self.handEval < 3 ){
+		if ( self.handEval < 1 && round != 0){
 			return -1;
 		}
-		if ( self.handEval < 6 && bet < savedChips/4 ){
+		if ( self.handEval < 2 && bet < savedChips/4 ){
 			return bet;
 		}
-		if ( self.handEval < 6 && bet > savedChips/4 ){
+		if ( self.handEval < 2 && bet > savedChips/4 ){
 			return -1;
 		}
-		if ( self.handEval < 9 && bet < savedChips/2 ){
-			if (raised == false){
-				raised = true;
+		if ( self.handEval < 4 && bet < savedChips/2 ){
+			if (self.newRound){
+				self.newRound = false;
 				console.log("Raised On: " + bet);
 				return bet + 1;
 			}
 			else {
-				raised = false;
 				console.log("Not Raised: " + bet);
 				return bet;
 			}
 		}
-		if ( self.handEval < 9 && bet > savedChips/2 ){
+		if ( self.handEval < 4 && bet > savedChips/2 ){
 			return -1;
 		}
 		else {
-			if (raised == false){
-				raised = true;
+			if (self.newRound){
+				self.newRound = false;
 				console.log("Raised On: " + bet);
 				return bet + 1;
 			}
 			else {
-				raised = false;
 				console.log("Not Raised: " + bet);
 				return bet;
 			}
