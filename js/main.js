@@ -158,6 +158,10 @@ $(CastFramework).ready(function() {
     function handleBet(id, bet) {
         var previous_bet = bet;
 
+	if (previous_bet > totalBetForRound){
+		totalBetForRound = previous_bet;
+	}
+
         // Add the current bet to the current hand's pot
         if (previous_bet != -1) {
             game.hand().pot(game.hand().pot()+previous_bet);
@@ -288,6 +292,9 @@ $(CastFramework).ready(function() {
             else{
                 num_folds++;
             }
+            else{
+                num_folds++;
+            }
         });
 
         //if all but one player has folded, hand ends
@@ -329,6 +336,12 @@ $(CastFramework).ready(function() {
     			player.resetRandoms();
     		}
     	});
+
+	game.activePlayers().forEach(function(player) {
+		if (player.type == 'AIPlayer'){
+			player.resetRandoms();
+		}
+	});
 
         var winnings = {
             'winner_id': winner.id,

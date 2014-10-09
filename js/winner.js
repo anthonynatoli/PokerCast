@@ -10,6 +10,7 @@ var handRank = [
 	"Straight Flush",
 	"Royal Flush"
 ];
+
 /* Loops through each active player and
    checks their score against the previous player.
    Returns the player with the highest score */
