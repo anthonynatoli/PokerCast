@@ -259,12 +259,6 @@ $(CastFramework).ready(function() {
         var winner = determineWinner();
         var pot_value = emptyPot();
 
-	/*game.activePlayers().forEach(function(player) {
-		if (player.type == 'AIPlayer'){
-			player.resetRandoms();
-		}
-	});*/
-
         var winnings = {
             'winner_id': winner.id,
             'winner_name': winner.name,
