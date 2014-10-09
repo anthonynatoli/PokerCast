@@ -11,4 +11,5 @@ function Hand(deck, chipsPerPlayer, pot) {
 		return self.round() >= 4;
 	});
 	self.winner = ko.observable("Ben (duh!)");
+	self.ante = ko.observable(0);
 }
