@@ -336,6 +336,7 @@ $(CastFramework).ready(function() {
         var x = 0;
         var temp_player = null;
         var chipsPerPlayer = game.hand().chipsPerPlayer;
+        var startingPot = 0;
 
         //remove ineligible players from activePlayer list
         for( x = game.activePlayers().length - 1; x >= 0; x-- ){
@@ -358,6 +359,9 @@ $(CastFramework).ready(function() {
 
         received = false; //set global variable to false
         //I don't see why the received variable is necessary
+
+        // create a Deck and a Hand
+        game.hand(new Hand(new Deck(), chipsPerPlayer, startingPot));
 
         //distribute cards to players
         game.activePlayers().forEach( function( player ){
