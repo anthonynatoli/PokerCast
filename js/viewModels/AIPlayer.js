@@ -7,6 +7,7 @@ function AIPlayer(id, chips) {
 	var raised = 0;
 	var frugality = Math.random()*4 + 0.5;	//how much they're willing to bet, lower = more
 	var confidence = Math.random()*3;	//boosts handEvaluation
+	var bluffing = Math.random()*100;	//bluffing if less than set number
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
 		console.log("HandEval: " + self.handEval);
@@ -14,6 +15,9 @@ function AIPlayer(id, chips) {
 		console.log("Bet: " + bet);
 		console.log("Frugality: " + frugality);
 		var finalEval = self.handEval + confidence;
+		if ( bluffing < 15 && round != 0){
+			finalEval = 10;
+		}
 		if ( bet == 0 && finalEval < 1 ){
 			return safeBet(bet);
 		}
@@ -75,6 +79,10 @@ function AIPlayer(id, chips) {
 		else {
 			return raise;
 		}
+	}
+	self.resetRandoms = function() {
+		confidence = Math.random()*3;
+		bluffing = Math.random()*100;
 	}
 }
 
