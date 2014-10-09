@@ -5,28 +5,33 @@ function AIPlayer(id, chips) {
 	self.handEval = -1;
 	self.newRound = true;
 	var raised = 0;
-	var boldness = Math.random()*4 + 0.5;	//how much they're willing to bet, lower = more
+	var frugality = Math.random()*4 + 0.5;	//how much they're willing to bet, lower = more
 	var confidence = Math.random()*3;	//boosts handEvaluation
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
 		console.log("HandEval: " + self.handEval);
 		console.log("Confidence: " + confidence);
 		console.log("Bet: " + bet);
-		console.log("Boldness: " + boldness);
+		console.log("Frugality: " + frugality);
 		var finalEval = self.handEval + confidence;
 		if ( bet == 0 && finalEval < 1 ){
 			return bet;
 		}
-		if ( finalEval < 1 && round != 0){
-			return -1;
+		if ( finalEval < 1 ){
+			if ( round == 0 && bet < savedChips/(frugality + 2) ){
+				return bet;
+			}
+			else {
+				return -1;
+			}
 		}
-		if ( finalEval < 3 && bet < savedChips/boldness ){
+		if ( finalEval < 3 && bet < savedChips/frugality ){
 			return bet;
 		}
-		if ( finalEval < 3 && bet > savedChips/boldness ){
+		if ( finalEval < 3 && bet > savedChips/frugality ){
 			return -1;
 		}
-		if ( finalEval < 5 && bet < savedChips/(boldness/2) ){
+		if ( finalEval < 5 && bet < savedChips/(frugality/2) ){
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
@@ -37,7 +42,7 @@ function AIPlayer(id, chips) {
 				return bet;
 			}
 		}
-		if ( finalEval < 5 && bet > savedChips/(boldness/2) ){
+		if ( finalEval < 5 && bet > savedChips/(frugality/2) ){
 			return -1;
 		}
 		else {
@@ -51,7 +56,7 @@ function AIPlayer(id, chips) {
 				return bet;
 			}
 		}
-		//return bet; // always fold
+		//return bet;
 		//return (savedChips/4);
 	}
 }
