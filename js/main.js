@@ -1,7 +1,5 @@
 $(CastFramework).ready(function() {
     CastFramework.start('urn:x-cast:com.pokercast.receiver');
-    $(document.body).css("background-color", "#1693A5");
-    $('#status').text("it's working! yay!");
 
     $(CastFramework).on("join", function(event, clientId, content) {
     	content = content || {};
@@ -130,7 +128,7 @@ $(CastFramework).ready(function() {
             }
         });
 
-        if (game.hand().currentPlayer().id == clientId) {
+        if (game.hand().currentPlayer() && (game.hand().currentPlayer().id == clientId)) {
             handleBet(clientId, -1);
         }
     });
@@ -343,7 +341,7 @@ $(CastFramework).ready(function() {
         CastFramework.broadcastMessage( 'end_hand', winnings );
 
         //add pot to chip count of hand winner
-        var winner_chips = winner.chips + pot_value;
+        var winner_chips = winner.chips() + pot_value;
         winner.chips( winner_chips );
 
         //check if game ends
