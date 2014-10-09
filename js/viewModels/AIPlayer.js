@@ -8,8 +8,8 @@ function AIPlayer(id, chips) {
 	var confidence = Math.random()*4 + 0.1;
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
-		console.log("HandEval: " + self.handEval);
-		console.log("Bet: " + bet);
+		//console.log("HandEval: " + self.handEval);
+		//console.log("Bet: " + bet);
 		console.log("Confidence: " + confidence);
 		//var finalEval = self.handEval + confidence;
 		if ( bet == 0 && self.handEval < 1 ){
