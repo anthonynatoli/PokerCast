@@ -4,6 +4,7 @@ function Player(id, name) {
 	self.id = id;
 	self.name = name || "";
 	self.bet = ko.observable(0);
+	self.betRound = ko.observable(0);
 	self.chips = ko.observable(0);
 	self.hadTurn = false;
 	self.cards = [];
