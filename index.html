@@ -45,13 +45,14 @@
                     ">
                 <!-- /ko -->
                 <div id="pot">
-                    <div class="floatingDialog" style="font-size:50px; font-weight:bold" data-bind="text: game.hand().pot"></div>
+                    <img src="img/pot.png" class="pot-img">
+                    <div class="info" data-bind="text: game.hand().pot"></div>
                 </div>
             </div>
         <!-- /ko -->
         <div id="score" data-bind="visible: game.activePlayers().length > 0">
             <!-- ko foreach: game.shownPlayers -->
-                <div>
+                <div class="player-box">
                     <div class="player floatingDialog" data-bind="
                         css: {
                             turn: isTurn
@@ -61,35 +62,66 @@
                             text: name || 'Player ' + ($index()+1)
                         ">
                         </div>
-                        <div class="player-action" data-bind="
-                            text: action,
-                            css: {
-                                fold: action().indexOf('Fold') != -1,
-                                bet: action().indexOf('Bet') != -1,
-                                raise: action().indexOf('Raise') != -1,
-                                call: action().indexOf('Call') != -1,
-                                check: action().indexOf('Check') != -1
-                            }">
-                        </div>
+                        <!-- ko if: game.hand() && !game.hand().over() -->
+                            <div class="player-action" data-bind="
+                                text: action,
+                                css: {
+                                    fold: action().indexOf('Fold') != -1,
+                                    bet: action().indexOf('Bet') != -1,
+                                    raise: action().indexOf('Raise') != -1,
+                                    call: action().indexOf('Call') != -1,
+                                    check: action().indexOf('Check') != -1
+                                }">
+                            </div>
+                        <!-- /ko -->
                         <div class="player-chips">
                             <img src="img/chip.png" class="chips-img">
                             <span data-bind="text: chips"></span>
                         </div>
                     </div>
-                    <div class="current-round-bet info" data-bind="visible: betRound() > 0">
-                        <div class="player-chips">
-                            <img src="img/chip.png" class="chips-img">
-                            <span data-bind="text: betRound"></span>
+                    <!-- ko if: game.hand() && game.hand().over() -->
+                        <div class="cards">
+                            <img class="card-sm card-zero" data-bind="
+                                text: cards[0].value,
+                                attr: {
+                                    'src': 'img/cards/'+cards[0].suit+cards[0].value+'.png'
+                                }
+                            ">
+                            <img class="card-sm card-one" data-bind="
+                                text: cards[1].value,
+                                attr: {
+                                    'src': 'img/cards/'+cards[1].suit+cards[1].value+'.png'
+                                }
+                            ">
                         </div>
-                    </div>
+                        <div class="player-best-hand" data-bind="text: bestHand">
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko if: game.hand() && !game.hand().over() -->
+                        <div class="current-round-bet info" data-bind="visible: betRound() > 0">
+                            <div class="player-bet">
+                                <img src="img/chip2.png" class="chips-img-sm">
+                                <span data-bind="text: betRound"></span>
+                            </div>
+                        </div>
+                    <!-- /ko -->
                 </div>
             <!-- /ko -->
         </div>
-        <!-- ko if: game.hand() && game.hand().round() >= 4 -->
-            <div id="winner">
-                <div class="floatingDialog" style="font-size:50px; font-weight:bold"><span data-bind="text: game.activePlayers()[0].name"></span> wins!</div>
+        <!-- ko if: game.hand() -->
+            <div id="pot">
+                <!-- ko if: game.hand().over() -->
+                    <div class="info">
+                        <span data-bind="text: game.hand().winner"></span> wins!
+                    </div>
+                <!-- /ko -->
+                <!-- ko ifnot: game.hand().over() -->
+                    <img src="img/pot.png" class="pot-img">
+                    <div class="info" data-bind="text: game.hand().pot"></div>
+                <!-- /ko -->
             </div>
         <!-- /ko -->
+        </div>
     </div>
     <script>
         var game = new Game();

@@ -7,4 +7,8 @@ function Hand(deck, chipsPerPlayer, pot) {
 	self.cardsOnTable = ko.observableArray([]);
 	self.currentPlayer = ko.observable();
 	self.currentBet = 0;
+	self.over = ko.computed(function() {
+		return self.round() >= 4;
+	});
+	self.winner = ko.observable("Ben (duh!)");
 }

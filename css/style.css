@@ -29,29 +29,21 @@ body {
 #pot {
 	position:absolute;
 	color:rgba(255,255,255,1);
-	font-size:20px;
-	bottom:0;
+	font-size:50px;
+	bottom:50px;
 	left:0;
 	width:100%;
 	display:flex;
-	justify-content:space-around;
-	align-items:flex-start;
+	justify-content:center;
+	align-items:center;
 	align-content:center;
 	flex-wrap:wrap;
+	font-weight:bold;
 }
-#winner {
-	position:absolute;
-	color:rgba(255,255,255,1);
-	font-size:20px;
-	bottom:50%;
-	left:0;
-	width:100%;
-	display:flex;
-	justify-content:space-around;
-	align-items:flex-start;
-	align-content:center;
-	flex-wrap:wrap;
-}
+	#pot .pot-img {
+		height:150px;
+	}
+	
 #score {
 	margin-top:15px;
 	position:absolute;
@@ -67,6 +59,18 @@ body {
 	align-content:center;
 	flex-wrap:nowrap;
 }
+	#score .player-box {
+		height:100%;
+		width:100%;
+		text-shadow: 0px 0px 10px #000000;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		align-content:center;
+		flex-wrap:wrap;
+		flex-direction:column;
+	}
+
 	#score .player {
 		text-align:center;
 	}
@@ -121,11 +125,55 @@ body {
 		vertical-align:middle;
 	}
 
+	#score .chips-img-sm {
+		height:30px;
+		margin-right:10px;
+		margin-left:10px;
+		vertical-align:middle;
+	}
+
+	#score .player-bet {
+		margin-left:auto;
+		margin-right:auto;
+		font-weight:bold;
+		padding-top:0px;
+		font-size:25px;
+	}
+
 	#score .turn {
 		font-weight:bold;
 		box-shadow: 0px 0px 30px #000000;
 		background-color:rgba(0,0,0,0.6);
 	}
+
+	#score .cards {
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		align-content:center;
+		flex-wrap:wrap;
+		margin-top:-20px;
+	}
+
+	#score .card-zero {
+		transform: rotate(-5deg);
+		margin:-2px;
+	}
+
+	#score .card-one {
+		transform: rotate(5deg);
+		margin:-2px;
+	}
+
+	#score .player-best-hand {
+		background-color:rgba(0,0,0,.5);
+		font-weight:bold;
+		text-shadow: 0px 0px 6px #000000;
+		border-radius:10px;
+		padding:10px;
+		margin-top:-5px;
+	}
+
 #cards {
 	height:100%;
 	width:100%;
@@ -152,6 +200,16 @@ body {
 	font-weight:bold;
 	border-radius:10px;
 	box-shadow: 0px 0px 10px rgba(0,0,0,.75);
+	flex-shrink:0;
+	background-size:contain;
+}
+.card-sm {
+	margin:5px;
+	width:50px;
+	border-size:1px;
+	font-weight:bold;
+	border-radius:2px;
+	box-shadow: 0px 0px 3px rgba(0,0,0,.75);
 	flex-shrink:0;
 	background-size:contain;
 }

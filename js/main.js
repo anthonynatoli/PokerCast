@@ -259,6 +259,7 @@ $(CastFramework).ready(function() {
        and if the game is over */
     function endHand() {
         var winner = determineWinner();
+        game.hand().winner(winner.name);
         var pot_value = emptyPot();
         firstPlayer = true;
 

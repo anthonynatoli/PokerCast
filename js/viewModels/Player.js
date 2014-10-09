@@ -12,4 +12,5 @@ function Player(id, name) {
 	self.isTurn = ko.computed(function() {
 		return game.hand() && game.hand().currentPlayer() && game.hand().currentPlayer().id === self.id;
 	});
+	self.bestHand = ko.observable("High Card");
 }
