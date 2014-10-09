@@ -6,7 +6,7 @@ function AIPlayer(id, chips) {
 	self.newRound = true;
 	var raised = 0;
 	var boldness = Math.random()*4 + 0.5;	//how much they're willing to bet, lower = more
-	var confidence = Math.random()*2;	//boosts handEvaluation
+	var confidence = Math.random()*3;	//boosts handEvaluation
 	self.type = "AIPlayer";
 	self.makeBet = function(bet, round) {
 		console.log("HandEval: " + self.handEval);
