@@ -63,7 +63,10 @@ $(CastFramework).ready(function() {
     			game.activePlayers.push(new AIPlayer(i, content.chipsPerPlayer));
     		}
     	}
-
+        
+        // create a Deck and a Hand
+        game.hand(new Hand(new Deck(), content.chipsPerPlayer, startingPot));
+        
         //send out ante amount and subtract amount from chip count
         game.hand().ante( 1 ); //set ante at 1 for now, can enable host to set ante if we want
         var ante_amount = game.hand().ante();
@@ -75,11 +78,11 @@ $(CastFramework).ready(function() {
         //take ante from each player and put it in the pot
         game.activePlayers().forEach( function( player ){
             player.chips( player.chips() - ante_amount );
-            game.hand().pot( game.hand.pot() + ante_amount );
+            game.hand().pot( game.hand().pot() + ante_amount );
         });
 
-        // create a Deck, a Hand, and give each player cards and chips
-        game.hand(new Hand(new Deck(), content.chipsPerPlayer, startingPot));
+        
+        //give each player cards and chips
         game.activePlayers().forEach(function(player) {
             // give each player two cards
             player.cards.push(game.hand().deck().getCard());
