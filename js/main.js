@@ -324,11 +324,11 @@ $(CastFramework).ready(function() {
         var pot_value = emptyPot();
         firstPlayer = true;
 
-	game.activePlayers().forEach(function(player) {
-		if (player.type == 'AIPlayer'){
-			player.resetRandoms();
-		}
-	});
+    	game.activePlayers().forEach(function(player) {
+    		if (player.type == 'AIPlayer'){
+    			player.resetRandoms();
+    		}
+    	});
 
         var winnings = {
             'winner_id': winner.id,
@@ -340,6 +340,10 @@ $(CastFramework).ready(function() {
 
         CastFramework.broadcastMessage( 'end_hand', winnings );
 
+        setTimeout(nextHand, 60000);
+    }
+
+    function nextHand() {
         //add pot to chip count of hand winner
         var winner_chips = winner.chips() + pot_value;
         winner.chips( winner_chips );
