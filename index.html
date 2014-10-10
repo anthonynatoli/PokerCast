@@ -11,6 +11,7 @@
     <script src="js/framework/CastFramework.js"></script>
     <!-- include KnockoutJS -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-debug.js"></script>
+    <script src="js/lib/knockout-animate.js"></script>
     <!-- include view models -->
     <script src="js/viewModels/Game.js"></script>
     <script src="js/viewModels/Hand.js"></script>
@@ -23,6 +24,7 @@
     <script src="js/hand_types.js"></script>
     <!-- include CSS file(s) -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
 </head>
 <body>
     <div id="table">
@@ -50,9 +52,13 @@
                 </div>
             </div>
         <!-- /ko -->
-        <div id="score" data-bind="visible: game.activePlayers().length > 0">
+        <div id="score" data-bind="visible: game.activePlayers().length > 0,">
             <!-- ko foreach: game.shownPlayers -->
-                <div class="player-box">
+                <div class="player-box" data-bind="
+                    cssAnimateVisible: isCssAnimateVisible,
+                    animation: 'zoomInDown',
+                    duration: 1000
+                ">
                     <div class="player floatingDialog" data-bind="
                         css: {
                             turn: isTurn
@@ -98,7 +104,11 @@
                         </div>
                     <!-- /ko -->
                     <!-- ko if: game.hand() && !game.hand().over() -->
-                        <div class="current-round-bet info" data-bind="visible: betRound() > 0">
+                        <div class="current-round-bet info" data-bind="
+                            cssAnimateVisible: isBetVisible,
+                            animation: 'fadeInDown',
+                            duration: 1000
+                        ">
                             <div class="player-bet">
                                 <img src="img/chip2.png" class="chips-img-sm">
                                 <span data-bind="text: betRound"></span>

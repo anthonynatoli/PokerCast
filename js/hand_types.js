@@ -13,6 +13,19 @@ Rank = {
 	HighCard: 0
 };
 
+handRank = [
+	"High Card",
+	"One Pair",
+	"Two Pair",
+	"Three of a Kind",
+	"Straight",
+	"Flush",
+	"Full House",
+	"Four of a Kind",
+	"Straight Flush",
+	"Royal Flush"
+];
+
 var H = 0, S = 1, C = 2, D = 3;
 
 // ==============================================================================

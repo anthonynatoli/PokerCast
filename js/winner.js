@@ -1,16 +1,3 @@
-var handRank = [
-	"High Card",
-	"One Pair",
-	"Two Pair",
-	"Three of a Kind",
-	"Straight",
-	"Flush",
-	"Full House",
-	"Four of a Kind",
-	"Straight Flush",
-	"Royal Flush"
-];
-
 /* Loops through each active player and
    checks their score against the previous player.
    Returns the player with the highest score */
@@ -33,7 +20,7 @@ function determineWinner(){
 		
 		// Score is an arry in the form of {Rank, HighestUsedCard, HighCards
 	    var score = determineHand(cards);
-	    game.activePlayers()[i].bestHand(handRank[score[0]]);
+	    game.activePlayers()[i].bestHand(score);
 
 	    // If the rank (royal flush, straight, etc.) is higher
 	    // than previous best then update score

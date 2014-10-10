@@ -5,6 +5,7 @@ function Game() {
 		if(self.activePlayers().length < 6 || !self.hand() || !self.hand().currentPlayer()) {
 			return self.activePlayers();
 		}
+		// display 5 players closest to current player
 		var currentPlayerIndex = self.activePlayers().indexOf(self.hand().currentPlayer());
 		return [
 			self.activePlayers()[(currentPlayerIndex - 2 + self.activePlayers().length) % self.activePlayers().length],

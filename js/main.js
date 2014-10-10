@@ -35,7 +35,9 @@ $(CastFramework).ready(function() {
                 game.inactivePlayers.push(new Player(clientId, content.name || null));
             }
             else{
-                game.activePlayers.push(new Player(clientId, content.name || null));
+                var player = new Player(clientId, content.name || null);
+                game.activePlayers.push(player);
+                player.isCssAnimateVisible(true);
             }
             // Sends them a message letting them know if they have
             // successfully joined and if they are the host
@@ -58,7 +60,9 @@ $(CastFramework).ready(function() {
         // create AIPlayers
     	if(content.aiPlayers) {
     		for(var i = 0; i < content.aiPlayers; i++) {
-    			game.activePlayers.push(new AIPlayer(i, content.chipsPerPlayer));
+                var player = new AIPlayer(i, content.chipsPerPlayer);
+    			game.activePlayers.push(player);
+                player.isCssAnimateVisible(true);
     		}
     	}
         
@@ -68,13 +72,6 @@ $(CastFramework).ready(function() {
         //send out ante amount and subtract amount from chip count
         game.hand().ante( 1 ); //set ante at 1 for now, can enable host to set ante if we want
         var ante_amount = game.hand().ante();
-
-        //take ante from each player and put it in the pot
-        game.activePlayers().forEach( function( player ){
-            player.chips( player.chips() - ante_amount );
-            game.hand().pot( game.hand().pot() + ante_amount );
-        });
-
         
         //give each player cards and chips
         game.activePlayers().forEach(function(player) {
@@ -82,6 +79,10 @@ $(CastFramework).ready(function() {
             player.cards.push(game.hand().deck().getCard());
             player.cards.push(game.hand().deck().getCard());
             player.chips(game.hand().chipsPerPlayer);
+
+            //take ante from each player and put it in the pot
+            player.chips( player.chips() - ante_amount );
+            game.hand().pot( game.hand().pot() + ante_amount );
 
             if(player.type != 'AIPlayer') {
                 // AIPlayers don't have ids, so don't send them messages!
@@ -150,17 +151,13 @@ $(CastFramework).ready(function() {
         if(player.type == 'AIPlayer') {
             window.setTimeout(function() {
                 handleBet(player.id, player.makeBet(bet, game.hand().round()));
-            }, 2000);
+            }, 1000);
         }
     }
 
     var firstPlayer = true;
     function handleBet(id, bet) {
         var previous_bet = bet;
-
-	if (previous_bet > totalBetForRound){
-		totalBetForRound = previous_bet;
-	}
 
         // Add the current bet to the current hand's pot
         if (previous_bet != -1) {
