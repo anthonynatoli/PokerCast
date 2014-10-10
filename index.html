@@ -54,11 +54,7 @@
         <!-- /ko -->
         <div id="score" data-bind="visible: game.activePlayers().length > 0,">
             <!-- ko foreach: game.shownPlayers -->
-                <div class="player-box" data-bind="
-                    cssAnimateVisible: isCssAnimateVisible,
-                    animation: 'zoomInDown',
-                    duration: 1000
-                ">
+                <div class="player-box">
                     <div class="player floatingDialog" data-bind="
                         css: {
                             turn: isTurn
@@ -105,9 +101,10 @@
                     <!-- /ko -->
                     <!-- ko if: game.hand() && !game.hand().over() -->
                         <div class="current-round-bet info" data-bind="
-                            cssAnimateVisible: bet() > 0,
+                            cssAnimateVisible: betRound() > 0,
                             animation: 'fadeInDown',
-                            duration: 1000
+                            duration: 1000,
+                            animationOut: 'fadeOutDown'
                         ">
                             <div class="player-bet">
                                 <img src="img/chip2.png" class="chips-img-sm">

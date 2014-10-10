@@ -37,7 +37,6 @@ $(CastFramework).ready(function() {
             else{
                 var player = new Player(clientId, content.name || null);
                 game.activePlayers.push(player);
-                player.isCssAnimateVisible(true);
             }
             // Sends them a message letting them know if they have
             // successfully joined and if they are the host
@@ -62,7 +61,6 @@ $(CastFramework).ready(function() {
     		for(var i = 0; i < content.aiPlayers; i++) {
                 var player = new AIPlayer(i, content.chipsPerPlayer);
     			game.activePlayers.push(player);
-                player.isCssAnimateVisible(true);
     		}
     	}
         

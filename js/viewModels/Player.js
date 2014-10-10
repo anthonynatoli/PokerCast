@@ -4,9 +4,6 @@ function Player(id, name) {
 	self.id = id;
 	self.name = name || "";
 	self.bet = ko.observable(0);
-	self.isBetVisible = ko.computed(function() {
-		return self.bet() > 0;
-	});
 	self.betRound = ko.observable(0);
 	self.chips = ko.observable(0);
 	self.hadTurn = false;
@@ -16,5 +13,4 @@ function Player(id, name) {
 		return game.hand() && game.hand().currentPlayer() && game.hand().currentPlayer().id === self.id;
 	});
 	self.bestHand = ko.observable("High Card");
-	self.isCssAnimateVisible = ko.observable(false);
 }
