@@ -320,7 +320,7 @@ $(CastFramework).ready(function() {
     function endHand() {
         var winner = determineWinner();
         game.hand().winner(winner.name);
-        var pot_value = emptyPot();
+        var pot_value = emptyPot() * 2;
         firstPlayer = true;
 
     	game.activePlayers().forEach(function(player) {
