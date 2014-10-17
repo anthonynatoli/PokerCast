@@ -57,7 +57,7 @@
                 <div class="player-box">
                     <div class="player floatingDialog" data-bind="
                         css: {
-                            turn: isTurn
+                            turn: isTurn() && !game.hand().over()
                         }
                     ">
                         <div class="player-name" data-bind="
