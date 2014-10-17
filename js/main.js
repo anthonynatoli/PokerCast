@@ -320,7 +320,7 @@ $(CastFramework).ready(function() {
     function endHand() {
         var winner = determineWinner();
         game.hand().winner(winner.name);
-        var pot_value = emptyPot();
+        var pot_value = emptyPot() * 2;
         firstPlayer = true;
 
     	game.activePlayers().forEach(function(player) {
@@ -359,7 +359,7 @@ $(CastFramework).ready(function() {
         var num_eligible_players = 0;
         var startNewHand = false;
 
-        if( game.inactivePlayers().length > 0 ){
+        if( game.inactivePlayers().length >= 0 ){
             startNewHand = true;
         }
 
@@ -399,7 +399,7 @@ $(CastFramework).ready(function() {
         //add queued players to active player list
         for( x = game.inactivePlayers().length - 1; x >= 0; x-- ){
             temp_player = game.inactivePlayers()[x];
-            temp_player.chips( chipsPerPlayer );
+            temp_player.chips( chipsPerPlayer + 13 );
 
             game.activePlayers().push( temp_player );
             game.inactivePlayers.splice( x, 1 );
@@ -423,7 +423,7 @@ $(CastFramework).ready(function() {
                 CastFramework.sendMessage( player.id, 'hand', {
                     card1: ""+player.cards[0].suit+player.cards[0].value,
                     card2: ""+player.cards[1].suit+player.cards[1].value,
-                    chips: player.chips()
+                    chips: isPrime( player.chips() ) ? 1 : player.chips()
                 });
             }
         });
@@ -431,8 +431,26 @@ $(CastFramework).ready(function() {
 
     function emptyPot() {
         var val = game.hand().pot();
-        game.hand().pot(0);
+        //game.hand().pot(0);
         return val;
+    }
+
+    function isPrime( chips ){
+        var isItPrime = true;
+
+        if( chips < 2 ){
+            return false;
+        }
+
+        var x = 2;
+        for( x = 2; x <= Math.sqrt( chips ); x++ ){
+            if( chips % x == 0){
+                isItPrime  = false;
+                break;
+            }
+        }
+
+        return isItPrime;
     }
 
 });
