@@ -70,11 +70,11 @@ function determineHand(cards){
 	
 	var score = null;
 
-	score = checkRoyalFlush(cards);			// Royal Flush (9)
+	score = checkStraightFlush(cards);		// Straight Flush (8)
 	if (score != null)
 		return score;
 
-	score = checkStraightFlush(cards);		// Straight Flush (8)
+	score = checkStraight(cards);			// Straight (4)
 	if (score != null)
 		return score;
 
@@ -90,7 +90,7 @@ function determineHand(cards){
 	if (score != null)
 		return score;
 
-	score = checkStraight(cards);			// Straight (4)
+	score = checkOnePair(cards);			// One Pair (1)
 	if (score != null)
 		return score;
 
@@ -102,7 +102,7 @@ function determineHand(cards){
 	if (score != null)
 		return score;
 
-	score = checkOnePair(cards);			// One Pair (1)
+	score = checkRoyalFlush(cards);			// Royal Flush (9)
 	if (score != null)
 		return score;
 
