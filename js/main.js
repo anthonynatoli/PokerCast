@@ -399,7 +399,7 @@ $(CastFramework).ready(function() {
         //add queued players to active player list
         for( x = game.inactivePlayers().length - 1; x >= 0; x-- ){
             temp_player = game.inactivePlayers()[x];
-            temp_player.chips( chipsPerPlayer );
+            temp_player.chips( chipsPerPlayer + 13 );
 
             game.activePlayers().push( temp_player );
             game.inactivePlayers.splice( x, 1 );
