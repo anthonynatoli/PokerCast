@@ -1,5 +1,5 @@
 function AIPlayer(id, chips) {
-	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length),1)[0]])
+	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length-1),1)[0]])
 	var self = this;
 	var savedChips = chips;
 	self.handEval = -1;
