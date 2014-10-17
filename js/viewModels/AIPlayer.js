@@ -1,5 +1,5 @@
 function AIPlayer(id, chips) {
-	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length),1)[0]])
+	Player.apply(this, ['aiPlayer'+id, names.splice(Math.floor(Math.random()*names.length-1),1)[0]])
 	var self = this;
 	var savedChips = chips;
 	self.handEval = -1;
@@ -40,11 +40,11 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return safeBet(bet + getRaiseAmount());
+				return bet + getRaiseAmount();
 			}
 			else {
 				console.log("Not Raised: " + bet);
-				return safeBet(bet);
+				return bet;
 			}
 		}
 		if ( finalEval < 5 && bet > savedChips/(frugality/2) ){
@@ -54,11 +54,11 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return safeBet(bet + getRaiseAmount());
+				return bet + getRaiseAmount();
 			}
 			else {
 				console.log("Not Raised: " + bet);
-				return safeBet(bet);
+				return bet;
 			}
 		}
 		//return bet;
