@@ -54,7 +54,6 @@ function determineWinner(){
 	    	bestScore[0] = score[0];
 	    	bestScore[1] = score[1];
 	    	bestScore[2] = score[2];
-	    	winner_index = i;
 	    }
 
 	}
