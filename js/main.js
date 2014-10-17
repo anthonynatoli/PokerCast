@@ -359,7 +359,7 @@ $(CastFramework).ready(function() {
         var num_eligible_players = 0;
         var startNewHand = false;
 
-        if( game.inactivePlayers().length > 0 ){
+        if( game.inactivePlayers().length >= 0 ){
             startNewHand = true;
         }
 
