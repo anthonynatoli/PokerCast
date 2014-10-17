@@ -431,7 +431,7 @@ $(CastFramework).ready(function() {
 
     function emptyPot() {
         var val = game.hand().pot();
-        game.hand().pot(0);
+        //game.hand().pot(0);
         return val;
     }
 
