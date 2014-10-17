@@ -40,11 +40,11 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return safeBet(bet + getRaiseAmount());
+				return bet + getRaiseAmount();
 			}
 			else {
 				console.log("Not Raised: " + bet);
-				return safeBet(bet);
+				return bet;
 			}
 		}
 		if ( finalEval < 5 && bet > savedChips/(frugality/2) ){
@@ -54,11 +54,11 @@ function AIPlayer(id, chips) {
 			if (self.newRound){
 				self.newRound = false;
 				console.log("Raised On: " + bet);
-				return safeBet(bet + getRaiseAmount());
+				return bet + getRaiseAmount();
 			}
 			else {
 				console.log("Not Raised: " + bet);
-				return safeBet(bet);
+				return bet;
 			}
 		}
 		//return bet;
@@ -69,7 +69,7 @@ function AIPlayer(id, chips) {
 			return desiredBet;
 		}
 		else {
-			return -1*self.chips();
+			return self.chips();
 		}
 	}
 	var getRaiseAmount = function(){
