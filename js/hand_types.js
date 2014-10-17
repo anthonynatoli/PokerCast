@@ -2,8 +2,8 @@
 // ============ Global const variables ============
 Rank = {
 	RoyalFlush: 9,
-	StraightFlush: 8,
-	FourKind: 7,
+	StraightFlush: 9,
+	FourKind: 9,
 	FullHouse: 6,
 	Flush: 5,
 	Straight: 4,
