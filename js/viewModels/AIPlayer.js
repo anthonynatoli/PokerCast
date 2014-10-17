@@ -69,7 +69,7 @@ function AIPlayer(id, chips) {
 			return desiredBet;
 		}
 		else {
-			return self.chips();
+			return -1*self.chips();
 		}
 	}
 	var getRaiseAmount = function(){
