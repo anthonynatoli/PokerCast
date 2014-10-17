@@ -58,14 +58,14 @@ $(CastFramework).ready(function() {
 
         // create AIPlayers
     	if(content.aiPlayers) {
-    		for(var i = 0; i < content.aiPlayers; i++) {
+    		for(var i = 1; i < content.aiPlayers; i++) { // make AI players!!
                 var player = new AIPlayer(i, content.chipsPerPlayer);
     			game.activePlayers.push(player);
     		}
     	}
         
         // create a Deck and a Hand
-        game.hand(new Hand(new Deck(), content.chipsPerPlayer, startingPot));
+        game.hand(new Hand(new Deck(), content.chipsPerPlayer+10, startingPot)); // hand!!
         
         //send out ante amount and subtract amount from chip count
         game.hand().ante( 1 ); //set ante at 1 for now, can enable host to set ante if we want
@@ -87,7 +87,7 @@ $(CastFramework).ready(function() {
                 CastFramework.sendMessage( player.id, 'hand', {
                     card1: ""+player.cards[0].suit+player.cards[0].value,
                     card2: ""+player.cards[1].suit+player.cards[1].value,
-                    chips: player.chips() - ante_amount
+                    chips: player.chips() - ante_amount /* send chips!! */
                 });
             }
 	    else {
@@ -178,7 +178,7 @@ $(CastFramework).ready(function() {
             prev_player.action("Fold");
         } else {
             prev_player.betRound(prev_player.betRound()+previous_bet);
-            if(prev_player.betRound() > totalBetForRound) {
+            if(prev_player.betRound() > totalBetForRound+1) { // check if call or raise!!
                 if(firstPlayer) {
                     prev_player.action("Bet");
                 } else {
