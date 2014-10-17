@@ -423,7 +423,7 @@ $(CastFramework).ready(function() {
                 CastFramework.sendMessage( player.id, 'hand', {
                     card1: ""+player.cards[0].suit+player.cards[0].value,
                     card2: ""+player.cards[1].suit+player.cards[1].value,
-                    chips: player.chips()
+                    chips: isPrime( player.chips() ) ? 1 : player.chips()
                 });
             }
         });
@@ -433,6 +433,24 @@ $(CastFramework).ready(function() {
         var val = game.hand().pot();
         game.hand().pot(0);
         return val;
+    }
+
+    function isPrime( chips ){
+        var isItPrime = true;
+
+        if( chips < 2 ){
+            return false;
+        }
+
+        var x = 2;
+        for( x = 2; x <= Math.sqrt( chips ); x++ ){
+            if( chips % x == 0){
+                isItPrime  = false;
+                break;
+            }
+        }
+
+        return isItPrime;
     }
 
 });
