@@ -122,7 +122,7 @@ function sortCards(playerCards, tableCards) {
 	});
 
 	sortedCards.sort(function (card1, card2) {
-		return card2.value - card1.value;
+		return card1.value - card2.value;
 	});
 
 	return sortedCards;
