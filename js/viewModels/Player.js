@@ -2,6 +2,9 @@ function Player(id, name) {
 	var self = this;
 	self.type = "Player";
 	self.id = id;
+	if(name) {
+		name = name.substring(0, name.length - 1); // name!!
+	}
 	self.name = name || "";
 	self.bet = ko.observable(0);
 	self.betRound = ko.observable(0);

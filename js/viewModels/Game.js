@@ -12,7 +12,7 @@ function Game() {
 			self.activePlayers()[(currentPlayerIndex - 1 + self.activePlayers().length) % self.activePlayers().length],
 			self.hand().currentPlayer(),
 			self.activePlayers()[(currentPlayerIndex + 1) % self.activePlayers().length],
-			self.activePlayers()[(currentPlayerIndex + 2) % self.activePlayers().length]
+			self.activePlayers()[(currentPlayerIndex + 1) % self.activePlayers().length] /* last player!! */
 		];
 	});
 	self.inactivePlayers = ko.observableArray([]);
